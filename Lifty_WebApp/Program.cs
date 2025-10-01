@@ -1,7 +1,12 @@
+using Lifty_WebApp.Business;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddBusinessLogicServices(builder.Configuration);
+
+builder.Services.AddAuthorization();
 
 var app = builder.Build();
 
