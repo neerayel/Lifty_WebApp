@@ -2,7 +2,7 @@
 
 namespace Lifty_WebApp.DataAccess.Interfaces
 {
-    internal interface IItemRepository : IRepository<Item>
+    public interface IItemRepository : IRepository<Item>
     {
 
     }

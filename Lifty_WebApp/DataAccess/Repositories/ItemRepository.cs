@@ -1,12 +1,11 @@
 ﻿using Lifty_WebApp.DataAccess.Entities;
 using Lifty_WebApp.DataAccess.Interfaces;
-using Microsoft.EntityFrameworkCore;
 
 namespace Lifty_WebApp.DataAccess.Repositories
 {
-    internal class ServicingRepository : IServicingRepository
+    internal class ItemRepository : IItemRepository
     {
-        public Task<Servicing> CreateAsync(Servicing item)
+        public Task<Item> CreateAsync(Item item)
         {
             throw new NotImplementedException();
         }
@@ -21,17 +20,17 @@ namespace Lifty_WebApp.DataAccess.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<List<Servicing>> GetAllAsync()
+        public Task<List<Item>> GetAllAsync()
         {
             throw new NotImplementedException();
         }
 
-        public Task<Servicing> GetByIdAsync(int id)
+        public Task<Item> GetByIdAsync(int id)
         {
             throw new NotImplementedException();
         }
 
-        public Task UpdateAsync(Servicing item)
+        public Task UpdateAsync(Item item)
         {
             throw new NotImplementedException();
         }
