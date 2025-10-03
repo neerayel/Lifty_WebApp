@@ -1,7 +1,4 @@
-using Lifty_WebApp.Business.Interfaces;
-using Lifty_WebApp.Business.Models;
 using Lifty_WebApp.Authorization;
-using Lifty_WebApp.Business.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Lifty_WebApp.DataAccess.Entities;
@@ -9,16 +6,17 @@ using Lifty_WebApp.Models;
 using System.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using Microsoft.IdentityModel.Tokens;
+using Lifty_WebApp.DataAccess.Interfaces;
 
 namespace Lifty_WebApp.Controllers
 {
     [Authorize(AuthenticationSchemes = AuthenticationSchemes.Schema, Roles = AuthenticationSchemes.Role)]
     public class AdminController : Controller
     {
-        private readonly IItemService _itemService;
-        public AdminController(IItemService itemService)
+        private readonly IItemRepository _itemRepository;
+        public AdminController(IItemRepository itemRepository)
         {
-            _itemService = itemService;
+            _itemRepository = itemRepository;
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
@@ -32,6 +30,21 @@ namespace Lifty_WebApp.Controllers
             return View();
         }
 
+        public IActionResult Catalog()
+        {
+            return View();
+        }
+
+        public IActionResult About()
+        {
+            return View();
+        }
+
+        public IActionResult Contacts()
+        {
+            return View();
+        }
+
         public IActionResult CreateItem()
         {
             return View();
@@ -39,24 +52,24 @@ namespace Lifty_WebApp.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateItem(ItemModel itemModel)
+        public async Task<IActionResult> CreateItem(Item itemModel)
         {
-            var item = await _itemService.CreateAsync(itemModel);
+            var item = await _itemRepository.CreateAsync(itemModel);
             return RedirectToAction(nameof(ItemDetails), new { id = item.Id });
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> UpdateItem(ItemModel itemModel)
+        public async Task<IActionResult> UpdateItem(Item itemModel)
         {
-            await _itemService.UpdateAsync(itemModel);
+            await _itemRepository.UpdateAsync(itemModel);
             return RedirectToAction(nameof(ItemDetails), new { id = itemModel.Id }); ;
         }
 
         [HttpPost]
         public async Task<IActionResult> CopyItem(int selectedItemId)
         {
-            var newItem = await _itemService.CopyByIdAsync(selectedItemId);
+            var newItem = await _itemRepository.CopyByIdAsync(selectedItemId);
 
             int minIdValue = 0;
             if (newItem.Id <= minIdValue) return RedirectToAction(nameof(Error));
@@ -69,7 +82,7 @@ namespace Lifty_WebApp.Controllers
         {
             if (id == null) return NotFound();
 
-            var item = await _itemService.GetByIdAsync((int)id);
+            var item = await _itemRepository.GetByIdAsync((int)id);
             if (item == null) return NotFound();
 
             return View(item);
@@ -79,15 +92,13 @@ namespace Lifty_WebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteItemByIdConfirmed(int id)
         {
-            await _itemService.DeleteAsync(id);
+            await _itemRepository.DeleteAsync(id);
             return RedirectToAction(nameof(Index));
         }
 
         public async Task<IActionResult> ItemDetails(int id)
         {
-            var test = await _itemService.GetByIdAsync(id);
-            var isValid = await _itemService.CheckPublishAsync(test);
-            ViewBag.isValid = isValid;
+            var test = await _itemRepository.GetByIdAsync(id);
             return View(test);
         }
     }

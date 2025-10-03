@@ -1,12 +1,12 @@
-using Lifty_WebApp.Business;
-using Microsoft.AspNetCore.Authentication;
 using Lifty_WebApp.Authorization;
+using LX.TestPad.DataAccess;
+using Microsoft.AspNetCore.Authentication;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddBusinessLogicServices(builder.Configuration);
+builder.Services.AddRepositories();
 
 builder.Services.AddAuthentication(AuthenticationSchemes.Schema)
                 .AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>

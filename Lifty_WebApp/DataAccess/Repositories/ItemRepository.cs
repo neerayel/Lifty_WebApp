@@ -5,6 +5,16 @@ namespace Lifty_WebApp.DataAccess.Repositories
 {
     internal class ItemRepository : IItemRepository
     {
+        public Task<bool> CheckPublishAsync(Item itemModel)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Item> CopyByIdAsync(int oldTestId)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task<Item> CreateAsync(Item item)
         {
             throw new NotImplementedException();
@@ -21,6 +31,16 @@ namespace Lifty_WebApp.DataAccess.Repositories
         }
 
         public Task<List<Item>> GetAllAsync()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<List<Item>> GetAllByPageNumberAsync(int pageNumber, int count)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<List<Item>> GetAllByRequestAsync(string request)
         {
             throw new NotImplementedException();
         }

@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using Lifty_WebApp.Models;
 using Lifty_WebApp.DataAccess.Interfaces;
+using Lifty_WebApp.DataAccess.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Lifty_WebApp.Controllers

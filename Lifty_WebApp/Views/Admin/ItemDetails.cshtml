@@ -1,75 +1,51 @@
-﻿@model LX.TestPad.Business.Models.TestModel
+﻿@model Lifty_WebApp.DataAccess.Entities.Item
 
 @{
-    Layout = "~/Views/Shared/_AdminLayout.cshtml";
-    ViewData["Title"] = "Test details";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    ViewData["Title"] = "ADMIN - " + Model.Name;
 }
 
-<h1>Test Information</h1>
+<h1>Информация о товаре</h1>
 
 <div class="card">
     <div class="card-body">
-        <form asp-action="UpdateTest" asp-route-id="@Model.Id" method="post">
+        <form asp-action="UpdateItem" asp-route-id="@Model.Id" method="post">
             <div class="form-group">
-                <label asp-for="Name" class="font-weight-bold">Test Name:</label>
+                <label asp-for="Name" class="font-weight-bold">Название товара:</label>
                 <p id="Name-text">@Model.Name</p>
                 <input maxlength="30" type="text" asp-for="Name" id="Name" class="form-control" style="display:none" required />
             </div>
+
+            <div class="form-group">
+                <label asp-for="Brand" class="font-weight-bold">Производитель:</label>
+                <p id="Brand-text">@Model.Brand</p>
+                <input maxlength="30" type="text" asp-for="Brand" id="Brand" class="form-control" style="display:none" required />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Delivery" class="font-weight-bold">Способ доставки:</label>
+                <p id="Delivery-text">@Model.Delivery</p>
+                <input maxlength="30" type="text" asp-for="Delivery" id="Delivery" class="form-control" style="display:none" required />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Payment" class="font-weight-bold">Способ оплаты:</label>
+                <p id="Payment-text">@Model.Payment</p>
+                <input maxlength="30" type="text" asp-for="Payment" id="Payment" class="form-control" style="display:none" required />
+            </div>
+
             <div class="form-group">
                 <label asp-for="Description" class="font-weight-bold">Description:</label>
                 <p id="Description-text">@Model.Description</p>
                 <input maxlength="115" type="text" asp-for="Description" id="Description" class="form-control" style="display:none" required />
             </div>
-            <div class="form-group">
-                <label asp-for="TestDuration" class="font-weight-bold">Test Duration:</label>
-                <p id="TestDuration-text">@Model.TestDuration min.</p>
-                <input maxlength="3" asp-for="TestDuration" id="TestDuration" class="form-control" style="display:none" required />
-            </div>
             <div class="my-2">
-                <input type="submit" value="Save" id="saveButton" class="btn btn-primary" style="display:none" />
-                <input type="button" value="Edit" id="editButton" class="btn btn-secondary" onclick="toggleEditing()" />
-                <input type="button" value="Cancel" id="cancelButton" class="btn btn-secondary" onclick="cancelEditing()" style="display:none" />
-            </div>
-            <div class="form-group">
-                <p id="IsPublished-text">
-                    @if (@Model.IsPublished)
-                    {
-                        <button class="btn btn-danger" asp-action="ChangeIsPublishedTest" asp-route-id="@Model.Id">
-                            Make test private
-                        </button>
-                    }
-                    else
-                    {
-                        <button class="btn btn-success" asp-action="ChangeIsPublishedTest" asp-route-id="@Model.Id">
-                            Make test public
-                        </button>
-                    }
-                </p>
-                <input asp-for="IsPublished" id="IsPublished" style="display:none" />
-            </div>
-            <!-- Modal -->
-            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLongTitle">Test is invalid to publish!</h5>
-                        </div>
-                        <div class="modal-body">
-                            Test have no questions or test question have no answers.
-                        </div>
-                        <div class="modal-footer">
-                            <button class="btn btn-info text-white" asp-action="MakeTestPrivate" asp-route-id="@Model.Id">
-                                Edit Questions
-                            </button>
-                        </div>
-                    </div>
-                </div>
+                <input type="submit" value="Сохранить" id="saveButton" class="btn btn-primary" style="display:none" />
+                <input type="button" value="Редактировать" id="editButton" class="btn btn-secondary" onclick="toggleEditing()" />
+                <input type="button" value="Отменить" id="cancelButton" class="btn btn-secondary" onclick="cancelEditing()" style="display:none" />
             </div>
         </form>
-        <a asp-action="TestQuestions" asp-route-testId="@Model.Id" style="width: 150px" class="btn btn-info text-white">
-            Edit Questions
-        </a>
-        <a asp-action="DeleteTest" asp-route-id="@Model.Id" class="btn text-danger mx-1">Delete Test</a>
+        <a asp-action="DeleteItem" asp-route-id="@Model.Id" class="btn text-danger mx-1">Удалить товар</a>
     </div>
 </div>
 <br />
@@ -80,17 +56,18 @@
 
 @section scripts{
     <script>
-        $(document).ready(function() {
-            if ("@ViewBag.isValid" === "False") $('#exampleModalCenter').modal('toggle');
-        });
-    </script>
-    <script>
         const inputName = "Name";
+        const inputBrand = "Brand";
+        const inputDelivery = "Delivery";
+        const inputPayment = "Payment";
         const inputDescription = "Description";
-        const inputTestDuration = "TestDuration";
+
         const textName = "Name-text";
+        const textBrand = "Brand-text";
+        const textDelivery = "Delivery-text";
+        const textPayment = "Payment-text";
         const textDescription = "Description-text";
-        const textTestDuration = "TestDuration-text";
+
         const saveButton = "saveButton";
         const cancelButton = "cancelButton";
         const editButton = "editButton";
@@ -105,14 +82,14 @@
         }
 
         function toggleEditing() {
-            applyStyleFor([inputName, inputDescription, inputTestDuration, saveButton, cancelButton], "display", "inline");
-            applyStyleFor([editButton, textName, textDescription, textTestDuration], "display", "none");
+            applyStyleFor([inputName, inputBrand, inputDelivery, inputPayment, inputDescription, saveButton, cancelButton], "display", "inline");
+            applyStyleFor([editButton, textName, textBrand, textDelivery, textPayment, textDescription], "display", "none");
 
         }
 
         function cancelEditing() {
-            applyStyleFor([inputName, inputDescription, inputTestDuration, saveButton, cancelButton], "display", "none");
-            applyStyleFor([editButton, textName, textDescription, textTestDuration], "display", "inline");
+            applyStyleFor([inputName, inputBrand, inputDelivery, inputPayment, inputDescription, saveButton, cancelButton], "display", "none");
+            applyStyleFor([editButton, textName, textBrand, textDelivery, textPayment, textDescription], "display", "inline");
         }
     </script>
 }

@@ -7,16 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\img\" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="8.14.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.7" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Lifty_WebApp.Business\Lifty_WebApp.Business.csproj" />
-    <ProjectReference Include="..\Lifty_WebApp.DataAccess\Lifty_WebApp.DataAccess.csproj" />
   </ItemGroup>
 
 </Project>

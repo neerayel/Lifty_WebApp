@@ -1,34 +1,51 @@
-﻿@model Lifty_WebApp.Business.Models.ItemModel
+﻿@model Lifty_WebApp.DataAccess.Entities.Item
+
 @{
-    ViewData["Title"] = "New Test";
-    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    ViewData["Title"] = "ADMIN - Добавление нового товара";
 }
 
 <h4 class="text-center">@ViewData["Title"]</h4>
 <hr />
 
-<form asp-action="CreateTest" method="post">
+<form asp-action="CreateItem" method="post">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <div class="row mb-3">
         <div class="col-md-5 col-md-auto mx-auto">
             <div class="form-group">
-                <label asp-for="Name" class="control-label">Test Name</label>
+                <label asp-for="Name" class="control-label">Название товара</label>
                 <input maxlength="30" asp-for="Name" class="form-control" required />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
+            <div class="form-group">
+                <label asp-for="Brand" class="control-label">Производитель</label>
+                <input maxlength="30" asp-for="Brand" class="form-control" required />
+                <span asp-validation-for="Brand" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Delivery" class="control-label">Способ доставки</label>
+                <input maxlength="30" asp-for="Delivery" class="form-control" required />
+                <span asp-validation-for="Delivery" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Payment" class="control-label">Способ оплаты</label>
+                <input maxlength="30" asp-for="Payment" class="form-control" required />
+                <span asp-validation-for="Payment" class="text-danger"></span>
+            </div>
             <div class="form-group ml-auto">
-                <label asp-for="Description" class="control-label">Description</label>
+                <label asp-for="Description" class="control-label">Описание</label>
                 <textarea maxlength="115" asp-for="Description" style="min-height: 40px; max-height: 200px;" rows="3" class="form-control"></textarea>
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
-            <div class="form-group ml-auto">
-                <label asp-for="TestDuration" class="control-label">Test Duration(minutes)</label>
-                <input maxlength="3" asp-for="TestDuration" class="form-control" type="number" min="0" required />
-                <span asp-validation-for="TestDuration" class="text-danger"></span>
-            </div>
+
+
+            <div></div>
+            <div></div>
+
+
             <div class="my-3 text-center">
-                <a class="btn btn-outline-danger mx-1" style="width: 130px;" href="@Url.Action("Index", "Admin")">Back to tests</a>
-                <input type="submit" value="Create" class="btn btn-primary mx-1" style="width: 80px;" />
+                <a class="btn btn-outline-danger mx-1" style="width: 130px;" href="@Url.Action("Index", "Admin")">Вернуться к списку товаров</a>
+                <input type="submit" value="Сохранить товар" class="btn btn-primary mx-1" style="width: 80px;" />
             </div>
         </div>
     </div>

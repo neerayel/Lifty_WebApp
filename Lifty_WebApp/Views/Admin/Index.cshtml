@@ -1,7 +1,8 @@
-﻿
+﻿@model List<Lifty_WebApp.DataAccess.Entities.Item>
+
 @{
-    Layout = "~/Views/Shared/_AdminLayout.cshtml";
-    ViewData["Title"] = "Admin home";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    ViewData["Title"] = "ADMIN";
 }
 
 
@@ -9,11 +10,7 @@
     <div class="text-start col-1"></div>
 
     <div class="text-start col-6">
-        <a asp-action="CreateTest" class="btn btn-outline-info">Create Test</a>
-    </div>
-
-    <div class="text-end col-5 text-center">
-        <input id="SearchTextBar" class="mx-3 mb-2" type="search" style="width: 200px; height: 33.5px;" maxlength="50" name="query" placeholder="Search test" />
-        <button class="btn btn-primary" onclick="loadAllTestsByRequest()">Search</button>
+        <a asp-action="CreateTest" class="btn btn-outline-info">Добавить новый товар</a>
     </div>
 </div>
+
