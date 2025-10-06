@@ -1022,12 +1022,12 @@
     display: flex;
     padding: var(--dl-layout-space-halfunit);
     align-items: center;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
 }
 
 .home-content-container6 {
-    width: 1102px;
+    width: 90%;
     margin: var(--dl-layout-space-unit);
     display: flex;
     max-width: var(--dl-layout-size-maxcontent);

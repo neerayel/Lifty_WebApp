@@ -2,13 +2,11 @@
 
 namespace Lifty_WebApp.DataAccess.Interfaces
 {
-    public interface IItemRepository : IRepository<Item>
+    public interface IItemRepository : IRepository<ItemModel>
     {
-        Task<List<Item>> GetAllByRequestAsync(string request);
-        Task<Item> GetByIdAsync(int testId);
-        Task<List<Item>> GetAllAsync();
-        Task<List<Item>> GetAllByPageNumberAsync(int pageNumber, int count);
-        Task<Item> CopyByIdAsync(int oldTestId);
-        Task<bool> CheckPublishAsync(Item itemModel);
+        Task<List<ItemModel>> GetAllByRequestAsync(string request);
+        Task<ItemModel> GetByIdAsync(string itemId);
+        Task<List<ItemModel>> GetAllAsync();
+        Task<ItemModel> CopyByIdAsync(string oldItemId);
     }
 }

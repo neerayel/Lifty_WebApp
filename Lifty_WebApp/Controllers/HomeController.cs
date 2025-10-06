@@ -11,50 +11,50 @@ namespace Lifty_WebApp.Controllers
 
         private readonly ILogger<HomeController> _logger;
         private readonly IItemRepository _itemService;
+        private readonly IContactsRepository _contactsRepository;
 
-        public HomeController(ILogger<HomeController> logger, IItemRepository itemService)
+        public HomeController(ILogger<HomeController> logger, IItemRepository itemService, IContactsRepository contactsRepository)
         {
             _logger = logger;
             _itemService = itemService;
+            _contactsRepository = contactsRepository;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
+        {
+            var contactsData = await _contactsRepository.GetDataAsync();
+            return View(contactsData);
+        }
+
+        public async Task<IActionResult> Catalog()
         {
             return View();
         }
 
-        public IActionResult Support()
+        public async Task<IActionResult> Servicing()
         {
             return View();
         }
 
-        public IActionResult Catalog()
+        public async Task<IActionResult> About()
         {
             return View();
         }
 
-        public IActionResult Servicing()
+        public async Task<IActionResult> Contacts()
         {
-            return View();
+            var contactsData = await _contactsRepository.GetDataAsync();
+            return View(contactsData);
         }
 
-        public IActionResult About()
+        public async Task<IActionResult> Privacy()
         {
-            return View();
-        }
-
-        public IActionResult Contacts()
-        {
-            return View();
-        }
-
-        public IActionResult Privacy()
-        {
-            return View();
+            var contactsData = await _contactsRepository.GetDataAsync();
+            return View(contactsData);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        public async Task<IActionResult> Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }

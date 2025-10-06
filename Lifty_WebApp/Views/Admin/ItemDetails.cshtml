@@ -1,58 +1,63 @@
-﻿@model Lifty_WebApp.DataAccess.Entities.Item
+﻿@model Lifty_WebApp.DataAccess.Entities.ItemModel
 
 @{
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
     ViewData["Title"] = "ADMIN - " + Model.Name;
 }
 
-<h1>Информация о товаре</h1>
+<div class="">
+    <div class="container">
+        <div class="my-2">
+            <div class="me-auto d-flex">
+                <h1 class="me-auto">Информация о товаре - @Model.Name</h1>
+                <a class="btn text-danger mx-3" href="@Url.Action("Catalog", "Admin")">Вернуться к списку</a>
+            </div>
+        </div>
 
-<div class="card">
-    <div class="card-body">
-        <form asp-action="UpdateItem" asp-route-id="@Model.Id" method="post">
-            <div class="form-group">
-                <label asp-for="Name" class="font-weight-bold">Название товара:</label>
-                <p id="Name-text">@Model.Name</p>
-                <input maxlength="30" type="text" asp-for="Name" id="Name" class="form-control" style="display:none" required />
-            </div>
+        <div class="card">
+            <div class="card-body">
+                <form asp-action="UpdateItem" asp-route-id="@Model.Id" method="post">
+                    <div class="form-group">
+                        <label asp-for="Name" class="font-weight-bold">Название товара:</label>
+                        <p id="Name-text">@Model.Name</p>
+                        <input maxlength="30" type="text" asp-for="Name" id="Name" class="form-control" style="display:none" required />
+                    </div>
 
-            <div class="form-group">
-                <label asp-for="Brand" class="font-weight-bold">Производитель:</label>
-                <p id="Brand-text">@Model.Brand</p>
-                <input maxlength="30" type="text" asp-for="Brand" id="Brand" class="form-control" style="display:none" required />
-            </div>
+                    <div class="form-group">
+                        <label asp-for="Brand" class="font-weight-bold">Производитель:</label>
+                        <p id="Brand-text">@Model.Brand</p>
+                        <input maxlength="30" type="text" asp-for="Brand" id="Brand" class="form-control" style="display:none" required />
+                    </div>
 
-            <div class="form-group">
-                <label asp-for="Delivery" class="font-weight-bold">Способ доставки:</label>
-                <p id="Delivery-text">@Model.Delivery</p>
-                <input maxlength="30" type="text" asp-for="Delivery" id="Delivery" class="form-control" style="display:none" required />
-            </div>
+                    <div class="form-group">
+                        <label asp-for="Delivery" class="font-weight-bold">Способ доставки:</label>
+                        <p id="Delivery-text">@Model.Delivery</p>
+                        <input maxlength="30" type="text" asp-for="Delivery" id="Delivery" class="form-control" style="display:none" required />
+                    </div>
 
-            <div class="form-group">
-                <label asp-for="Payment" class="font-weight-bold">Способ оплаты:</label>
-                <p id="Payment-text">@Model.Payment</p>
-                <input maxlength="30" type="text" asp-for="Payment" id="Payment" class="form-control" style="display:none" required />
-            </div>
+                    <div class="form-group">
+                        <label asp-for="Payment" class="font-weight-bold">Способ оплаты:</label>
+                        <p id="Payment-text">@Model.Payment</p>
+                        <input maxlength="30" type="text" asp-for="Payment" id="Payment" class="form-control" style="display:none" required />
+                    </div>
 
-            <div class="form-group">
-                <label asp-for="Description" class="font-weight-bold">Description:</label>
-                <p id="Description-text">@Model.Description</p>
-                <input maxlength="115" type="text" asp-for="Description" id="Description" class="form-control" style="display:none" required />
+                    <div class="form-group">
+                        <label asp-for="Description" class="font-weight-bold">Description:</label>
+                        <p id="Description-text">@Model.Description</p>
+                        <input maxlength="115" type="text" asp-for="Description" id="Description" class="form-control" style="display:none" required />
+                    </div>
+                    <div class="my-2">
+                        <input type="submit" value="Сохранить" id="saveButton" class="btn btn-primary" style="display:none" />
+                        <input type="button" value="Редактировать" id="editButton" class="btn btn-secondary" onclick="toggleEditing()" />
+                        <input type="button" value="Отменить" id="cancelButton" class="btn btn-secondary" onclick="cancelEditing()" style="display:none" />
+                    </div>
+                </form>
+                <a asp-action="DeleteItem" asp-route-id="@Model.Id" class="btn text-danger mx-1">Удалить товар</a>
             </div>
-            <div class="my-2">
-                <input type="submit" value="Сохранить" id="saveButton" class="btn btn-primary" style="display:none" />
-                <input type="button" value="Редактировать" id="editButton" class="btn btn-secondary" onclick="toggleEditing()" />
-                <input type="button" value="Отменить" id="cancelButton" class="btn btn-secondary" onclick="cancelEditing()" style="display:none" />
-            </div>
-        </form>
-        <a asp-action="DeleteItem" asp-route-id="@Model.Id" class="btn text-danger mx-1">Удалить товар</a>
+        </div>
     </div>
 </div>
-<br />
 
-<div class="my-3">
-    <a class="btn btn-outline-danger mx-1" style="width: 130px;" href="@Url.Action("Index", "Admin")">Back to tests</a>
-</div>
 
 @section scripts{
     <script>

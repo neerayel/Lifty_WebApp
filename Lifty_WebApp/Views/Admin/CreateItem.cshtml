@@ -1,55 +1,62 @@
-﻿@model Lifty_WebApp.DataAccess.Entities.Item
+﻿@model Lifty_WebApp.DataAccess.Entities.ItemModel
 
 @{
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
     ViewData["Title"] = "ADMIN - Добавление нового товара";
 }
 
-<h4 class="text-center">@ViewData["Title"]</h4>
-<hr />
-
-<form asp-action="CreateItem" method="post">
-    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-    <div class="row mb-3">
-        <div class="col-md-5 col-md-auto mx-auto">
-            <div class="form-group">
-                <label asp-for="Name" class="control-label">Название товара</label>
-                <input maxlength="30" asp-for="Name" class="form-control" required />
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Brand" class="control-label">Производитель</label>
-                <input maxlength="30" asp-for="Brand" class="form-control" required />
-                <span asp-validation-for="Brand" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Delivery" class="control-label">Способ доставки</label>
-                <input maxlength="30" asp-for="Delivery" class="form-control" required />
-                <span asp-validation-for="Delivery" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Payment" class="control-label">Способ оплаты</label>
-                <input maxlength="30" asp-for="Payment" class="form-control" required />
-                <span asp-validation-for="Payment" class="text-danger"></span>
-            </div>
-            <div class="form-group ml-auto">
-                <label asp-for="Description" class="control-label">Описание</label>
-                <textarea maxlength="115" asp-for="Description" style="min-height: 40px; max-height: 200px;" rows="3" class="form-control"></textarea>
-                <span asp-validation-for="Description" class="text-danger"></span>
-            </div>
-
-
-            <div></div>
-            <div></div>
-
-
-            <div class="my-3 text-center">
-                <a class="btn btn-outline-danger mx-1" style="width: 130px;" href="@Url.Action("Index", "Admin")">Вернуться к списку товаров</a>
-                <input type="submit" value="Сохранить товар" class="btn btn-primary mx-1" style="width: 80px;" />
+<div class="">
+    <div class="container">
+        <div class="my-2">
+            <div class="me-auto d-flex">
+                <h1 class="me-auto">Добавление нового товара</h1>
+                <a class="btn text-danger mx-3" href="@Url.Action("Catalog", "Admin")">Вернуться к списку</a>
             </div>
         </div>
+
+        <form asp-action="CreateItem" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="row mb-3">
+                <div class="col-md-5 col-md-auto mx-auto">
+                    <div class="form-group">
+                        <label asp-for="Name" class="control-label">Название товара</label>
+                        <input maxlength="30" asp-for="Name" class="form-control" required />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Brand" class="control-label">Производитель</label>
+                        <input maxlength="30" asp-for="Brand" class="form-control" required />
+                        <span asp-validation-for="Brand" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Delivery" class="control-label">Способ доставки</label>
+                        <input maxlength="30" asp-for="Delivery" class="form-control" required />
+                        <span asp-validation-for="Delivery" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Payment" class="control-label">Способ оплаты</label>
+                        <input maxlength="30" asp-for="Payment" class="form-control" required />
+                        <span asp-validation-for="Payment" class="text-danger"></span>
+                    </div>
+                    <div class="form-group ml-auto">
+                        <label asp-for="Description" class="control-label">Описание</label>
+                        <textarea maxlength="115" asp-for="Description" style="min-height: 40px; max-height: 200px;" rows="3" class="form-control"></textarea>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+
+
+                    <div></div>
+                    <div></div>
+
+
+                    <div class="my-3 text-center">
+                        <input type="submit" value="Сохранить товар" class="btn text-success mx-1" />
+                    </div>
+                </div>
+            </div>
+        </form>
     </div>
-</form>
+</div>
 
 
 @section Scripts {

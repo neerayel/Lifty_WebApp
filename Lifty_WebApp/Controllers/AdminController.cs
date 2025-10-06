@@ -1,12 +1,14 @@
 using Lifty_WebApp.Authorization;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
 using Lifty_WebApp.DataAccess.Entities;
-using Lifty_WebApp.Models;
-using System.Diagnostics;
-using Microsoft.AspNetCore.Http;
-using Microsoft.IdentityModel.Tokens;
 using Lifty_WebApp.DataAccess.Interfaces;
+using Lifty_WebApp.DataAccess.Repositories;
+using Lifty_WebApp.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
+using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace Lifty_WebApp.Controllers
 {
@@ -14,9 +16,11 @@ namespace Lifty_WebApp.Controllers
     public class AdminController : Controller
     {
         private readonly IItemRepository _itemRepository;
-        public AdminController(IItemRepository itemRepository)
+        private readonly IContactsRepository _contactsRepository;
+        public AdminController(IItemRepository itemRepository, IContactsRepository contactsRepository)
         {
             _itemRepository = itemRepository;
+            _contactsRepository = contactsRepository;
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
@@ -30,29 +34,65 @@ namespace Lifty_WebApp.Controllers
             return View();
         }
 
-        public IActionResult Catalog()
+        public async Task<IActionResult> Catalog(int pageNumber, int itemsOnPageCount)
+        {
+            if (pageNumber <= 0 && itemsOnPageCount <= 0)
+            {
+                pageNumber = 1;
+                itemsOnPageCount = 10;
+            }
+            int startIndex = pageNumber * itemsOnPageCount - itemsOnPageCount;
+            List<ItemModel> items = await _itemRepository.GetAllAsync();
+
+            if (startIndex > items.Count)
+            {
+                pageNumber = 1;
+                itemsOnPageCount = 10;
+            }
+            startIndex = pageNumber * itemsOnPageCount - itemsOnPageCount;
+
+            ViewBag.PageNumber = pageNumber;
+            ViewBag.ItemsOnPageCount = itemsOnPageCount;
+
+            if (itemsOnPageCount == 1) ViewBag.PageCount = items.Count / itemsOnPageCount;
+            else ViewBag.PageCount = items.Count / itemsOnPageCount + 1;
+
+            items = items.Slice(startIndex, items.Count - startIndex);
+
+            if (items.Count <= itemsOnPageCount)
+            {
+                return View(items);
+            }
+            return View(items.GetRange(startIndex, itemsOnPageCount));
+        }
+
+        public async Task<IActionResult> About()
         {
             return View();
         }
 
-        public IActionResult About()
+        public async Task<IActionResult> Contacts()
         {
-            return View();
+            var contactsData = await _contactsRepository.GetDataAsync();
+            return View(contactsData);
         }
 
-        public IActionResult Contacts()
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Contacts(ContactsModel contacts)
         {
-            return View();
+            await _contactsRepository.UpdateAsync(contacts);
+            return RedirectToAction(nameof(Contacts));
         }
 
-        public IActionResult CreateItem()
+        public async Task<IActionResult> CreateItem()
         {
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateItem(Item itemModel)
+        public async Task<IActionResult> CreateItem(ItemModel itemModel)
         {
             var item = await _itemRepository.CreateAsync(itemModel);
             return RedirectToAction(nameof(ItemDetails), new { id = item.Id });
@@ -60,29 +100,25 @@ namespace Lifty_WebApp.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> UpdateItem(Item itemModel)
+        public async Task<IActionResult> UpdateItem(ItemModel itemModel)
         {
             await _itemRepository.UpdateAsync(itemModel);
             return RedirectToAction(nameof(ItemDetails), new { id = itemModel.Id }); ;
         }
 
         [HttpPost]
-        public async Task<IActionResult> CopyItem(int selectedItemId)
+        public async Task<IActionResult> CopyItem(string selectedItemId)
         {
             var newItem = await _itemRepository.CopyByIdAsync(selectedItemId);
-
-            int minIdValue = 0;
-            if (newItem.Id <= minIdValue) return RedirectToAction(nameof(Error));
-
             return RedirectToAction(nameof(ItemDetails), new { id = newItem.Id });
 
         }
 
-        public async Task<IActionResult> DeleteItem(int? id)
+        public async Task<IActionResult> DeleteItem(string id)
         {
-            if (id == null) return NotFound();
+            if (String.IsNullOrEmpty(id)) return NotFound();
 
-            var item = await _itemRepository.GetByIdAsync((int)id);
+            var item = await _itemRepository.GetByIdAsync(id);
             if (item == null) return NotFound();
 
             return View(item);
@@ -90,13 +126,13 @@ namespace Lifty_WebApp.Controllers
 
         [HttpPost, ActionName("DeleteItem")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteItemByIdConfirmed(int id)
+        public async Task<IActionResult> DeleteItemByIdConfirmed(string id)
         {
             await _itemRepository.DeleteAsync(id);
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Catalog));
         }
 
-        public async Task<IActionResult> ItemDetails(int id)
+        public async Task<IActionResult> ItemDetails(string id)
         {
             var test = await _itemRepository.GetByIdAsync(id);
             return View(test);

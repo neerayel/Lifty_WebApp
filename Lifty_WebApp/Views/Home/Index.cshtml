@@ -1,4 +1,6 @@
-﻿@{
+﻿@model Lifty_WebApp.DataAccess.Entities.ContactsModel
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -15,7 +17,7 @@
                 taciti sociosqu ad litora torquent per conubia nostra, per
                 inceptos himenaeos.
             </span>
-            <button class="home-cta-btn1 Anchor btn-outline-primary">Узнать больше</button>
+            <a class="home-cta-btn1 Anchor btn-outline-primary" href="#inspiration">Узнать больше</a>
         </div>
     </div>
 </div>
@@ -227,8 +229,32 @@
 </div>
 
 <div id="resources" class="home-map bg-primary">
+    <div class="my-3 text-light">
+        <ul class="nav text-center">
+            <li class="nav-item">
+                @Model.Email
+            </li>
+            <li class="nav-item mx-5">
+                |
+            </li>
+            <li class="nav-item">
+                @Model.Number
+            </li>
+            <li class="nav-item mx-5">
+                |
+            </li>
+            <li class="nav-item">
+                @Model.Address
+            </li>
+        </ul>
+    </div>
     <div class="home-content-container6">
-        <iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3A8a4d5a722d598b32d519919663233eaead6d0ea3d835177385733288e21736a5&amp;source=constructor" 
-            frameborder="0" class="home-yandex-maps"></iframe>
+        <iframe src="@Model.YandexMapLink" frameborder="0" class="home-yandex-maps"></iframe>
     </div>
 </div>
+
+@* <div id="resources" class="home-map bg-primary">
+    <div class="home-content-container6">
+        <iframe src="https://www.google.com/maps?q=2880 Broadway, New York;&amp;output=embed" class="home-google-maps"></iframe>
+    </div>
+</div> *@
