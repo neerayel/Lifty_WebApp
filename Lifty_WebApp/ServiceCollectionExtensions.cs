@@ -8,7 +8,7 @@ namespace LX.TestPad.DataAccess
         public static IServiceCollection AddRepositories(this IServiceCollection services)
         {
             services.AddScoped<IItemRepository, ItemRepository>();
-            services.AddScoped<IContactsRepository, ContactsRepository>();
+            services.AddScoped<IStoredDataRepository, StoredDataRepository>();
 
             return services;
         }
