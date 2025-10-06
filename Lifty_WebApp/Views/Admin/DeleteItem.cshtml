@@ -1,0 +1,62 @@
+﻿@model Lifty_WebApp.DataAccess.Entities.ItemModel
+
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    ViewData["Title"] = "ADMIN - Удаление товара";
+}
+
+<div class="">
+    <div class="container">
+        <div class="my-2">
+            <div class="me-auto d-flex">
+                <h1 class="me-auto">Подтвердите удаление - @Model.Name</h1>
+                <a class="btn text-danger mx-3" href="@Url.Action("ItemDetails", "Admin", new { id = Model.Id })">Назад</a>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <br>
+                <dl class="row col-sm-0 mx-auto">
+                    <dt class="col-sm-0">
+                        Название товара
+                    </dt>
+                    <dd class="col-sm-0">
+                        @Model.Name
+                    </dd>
+                    <dt class="col-sm-0">
+                        Производитель
+                    </dt>
+                    <dd class="col-sm-0">
+                        @Model.Brand
+                    </dd>
+                    <dt class="col-sm-0">
+                        Способ доставки
+                    </dt>
+                    <dd class="col-sm-0">
+                        @Model.Delivery
+                    </dd>
+                    <dt class="col-sm-0">
+                        Способ оплаты
+                    </dt>
+                    <dd class="col-sm-0">
+                        @Model.Payment
+                    </dd>
+                    <dt class="col-sm-0">
+                        Описание
+                    </dt>
+                    <dd class="col-sm-0">
+                        @Model.Description
+                    </dd>
+                </dl>
+                <br>
+            </div>
+
+            <form asp-action="DeleteItem" class="mx-1">
+                <input type="hidden" asp-for="Id" />
+                <input type="submit" value="Удалить" class="btn btn-outline-danger" />
+            </form>
+        </div>
+    </div>
+</div>
+

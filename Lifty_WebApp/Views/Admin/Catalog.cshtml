@@ -1,0 +1,85 @@
+﻿@model List<Lifty_WebApp.DataAccess.Entities.ItemModel>
+
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    ViewData["Title"] = "ADMIN - Каталог";
+}
+
+<div class="container">
+    <div class="my-2">
+        <div class="me-auto d-flex">
+            <h1 class="me-auto">Каталог</h1>
+            <a asp-action="CreateItem" class="btn btn-outline-primary mx-3">Добавить новый товар</a>
+        </div>
+    </div>
+
+    <div id="process" class="my-5 container">
+        <div class="home-cards-container2">
+            @foreach (var item in Model)
+            {
+                <div class="home-service-card1">
+                    <h3 class="home-text20 Card-Heading text-primary-emphasis">@item.Name</h3>
+                    <span class="home-text21 Card-Text text-secondary-emphasis">
+                        @item.Description
+                    </span>
+                    <a href="@Url.Action("ItemDetails", "Admin", new { id = item.Id })" class="Anchor text-dark-emphasis">Подробнее</a>
+                </div>
+            }
+        </div>
+    </div>
+
+    <div>
+        <ul class="pagination nav-tabs">
+            @if (ViewBag.PageNumber <= 1)
+            {
+                <li class="page-item disabled">
+                    <a class="page-link" href="#">&laquo;</a>
+                </li>
+            }
+            else
+            {
+                <li class="page-item">
+                    <a href="@Url.Action("Catalog", "Admin", new { pageNumber = ViewBag.PageNumber - 1, itemsOnPageCount = ViewBag.ItemsOnPageCount })" class="page-link">&laquo;</a>
+                </li>
+            }
+
+            @for (int i = 1; i <= ViewBag.PageCount; i++)
+            {
+                @if (i == ViewBag.PageNumber)
+                {
+                    <li class="page-item active">
+                        <a class="page-link" href="#">@i</a>
+                    </li>
+                }
+                else
+                {
+                    <li class="page-item">
+                        <a href="@Url.Action("Catalog", "Admin", new { pageNumber = @i, itemsOnPageCount = ViewBag.ItemsOnPageCount })" class="page-link">@i</a>
+                    </li>
+                }
+            }
+
+            @if (ViewBag.PageNumber >= ViewBag.PageCount)
+            {
+                <li class="page-item disabled">
+                    <a class="page-link" href="#">&raquo;</a>
+                </li>
+            }
+            else
+            {
+                <li class="page-item">
+                    <a href="@Url.Action("Catalog", "Admin", new { pageNumber = ViewBag.PageNumber + 1, itemsOnPageCount = ViewBag.ItemsOnPageCount })" class="page-link">&raquo;</a>
+                </li>
+            }
+
+            <li class="page-item dropdown">
+                <a class="page-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Количество на странице</a>
+                <div class="dropdown-menu" style="">
+                    <a class="dropdown-item" href="@Url.Action("Catalog", "Admin", new { pageNumber = 1, itemsOnPageCount = 10 })">10</a>
+                    <a class="dropdown-item" href="@Url.Action("Catalog", "Admin", new { pageNumber = 1, itemsOnPageCount = 30 })">30</a>
+                    <a class="dropdown-item" href="@Url.Action("Catalog", "Admin", new { pageNumber = 1, itemsOnPageCount = 50 })">50</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
