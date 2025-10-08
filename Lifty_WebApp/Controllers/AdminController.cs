@@ -16,11 +16,11 @@ namespace Lifty_WebApp.Controllers
     public class AdminController : Controller
     {
         private readonly IItemRepository _itemRepository;
-        private readonly IContactsRepository _contactsRepository;
-        public AdminController(IItemRepository itemRepository, IContactsRepository contactsRepository)
+        private readonly IStoredDataRepository _dataRepository;
+        public AdminController(IItemRepository itemRepository, IStoredDataRepository dataRepository)
         {
             _itemRepository = itemRepository;
-            _contactsRepository = contactsRepository;
+            _dataRepository = dataRepository;
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
@@ -68,12 +68,21 @@ namespace Lifty_WebApp.Controllers
 
         public async Task<IActionResult> About()
         {
-            return View();
+            var aboutData = await _dataRepository.GetAboutDataAsync();
+            return View(aboutData);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> About(AboutDataModel aboutData)
+        {
+            await _dataRepository.UpdateAboutDataAsync(aboutData);
+            return RedirectToAction(nameof(About));
         }
 
         public async Task<IActionResult> Contacts()
         {
-            var contactsData = await _contactsRepository.GetDataAsync();
+            var contactsData = await _dataRepository.GetContactsDataAsync();
             return View(contactsData);
         }
 
@@ -81,7 +90,7 @@ namespace Lifty_WebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Contacts(ContactsModel contacts)
         {
-            await _contactsRepository.UpdateAsync(contacts);
+            await _dataRepository.UpdateContactsDataAsync(contacts);
             return RedirectToAction(nameof(Contacts));
         }
 

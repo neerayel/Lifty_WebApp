@@ -10,19 +10,19 @@ namespace Lifty_WebApp.Controllers
     {
 
         private readonly ILogger<HomeController> _logger;
-        private readonly IItemRepository _itemService;
-        private readonly IContactsRepository _contactsRepository;
+        private readonly IItemRepository _itemRepository;
+        private readonly IStoredDataRepository _dataRepository;
 
-        public HomeController(ILogger<HomeController> logger, IItemRepository itemService, IContactsRepository contactsRepository)
+        public HomeController(ILogger<HomeController> logger, IItemRepository itemService, IStoredDataRepository dataRepository)
         {
             _logger = logger;
-            _itemService = itemService;
-            _contactsRepository = contactsRepository;
+            _itemRepository = itemService;
+            _dataRepository = dataRepository;
         }
 
         public async Task<IActionResult> Index()
         {
-            var contactsData = await _contactsRepository.GetDataAsync();
+            var contactsData = await _dataRepository.GetContactsDataAsync();
             return View(contactsData);
         }
 
@@ -43,13 +43,13 @@ namespace Lifty_WebApp.Controllers
 
         public async Task<IActionResult> Contacts()
         {
-            var contactsData = await _contactsRepository.GetDataAsync();
+            var contactsData = await _dataRepository.GetContactsDataAsync();
             return View(contactsData);
         }
 
         public async Task<IActionResult> Privacy()
         {
-            var contactsData = await _contactsRepository.GetDataAsync();
+            var contactsData = await _dataRepository.GetContactsDataAsync();
             return View(contactsData);
         }
 

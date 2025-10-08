@@ -1,179 +1,102 @@
-﻿@{
+﻿@model Lifty_WebApp.DataAccess.Entities.AboutDataModel
+
+@{
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
     ViewData["Title"] = "ADMIN - О Компании";
 }
 
-<div id="inspiration" class="home-features container">
-    <div class="home-heading-container1">
-        <h1 class="home-text11 Section-Heading text-primary-emphasis">О Компании</h1>
-        <span class="home-text12 Section-Text text-secondary-emphasis">
-            Lorme ipsum dolor sit amet, consectetur adipiscing elit. Integer
-            nec odio. Praesent libero.
-        </span>
-    </div>
-    <div class="home-cards-container1">
-    <div class="home-features-card1">
-        <div class="home-icon-container1">
-            <svg viewBox="0 0 1024 1024" class="home-icon14">
-                <path d="M533.333 234.667c-11.776 0-21.333 9.557-21.333 21.333s9.557 21.333 21.333 21.333c46.208 0 83.797 37.589 83.797 83.797 0 11.776 9.557 21.333 21.333 21.333s21.333-9.557 21.333-21.333c0-69.717-56.747-126.464-126.464-126.464z"></path>
-                <path d="M533.333 42.667c-176.469 0-320 143.531-320 320 0 63.403 18.773 124.672 54.357 177.707 0.981 2.005 2.091 3.925 3.413 5.76 77.867 111.189 91.563 146.347 91.563 179.2v128c0 23.552 19.115 42.667 42.667 42.667h85.333c0 11.093 4.693 22.187 12.373 30.293 8.107 7.68 19.2 12.373 30.293 12.373 11.093 0 22.187-4.693 30.293-12.373 7.68-8.107 12.373-19.2 12.373-30.293h85.333c23.552 0 42.667-19.115 42.667-42.667v-128c0-33.365 13.611-68.693 90.965-179.157 38.187-54.4 58.368-117.845 58.368-183.509 0-176.469-143.531-320-320-320zM618.667 810.667h-170.667v-42.667h170.667v42.667zM725.12 497.195c-62.549 89.301-91.435 140.331-101.76 185.472h-47.36v-85.333c0-23.552-19.115-42.667-42.667-42.667s-42.667 19.115-42.667 42.667v85.333h-47.488c-10.24-43.947-38.315-93.867-98.389-180.053-0.939-1.877-2.048-3.712-3.285-5.504-28.032-39.851-42.837-86.357-42.837-134.443 0-129.408 105.259-234.667 234.667-234.667s234.667 105.259 234.667 234.667c0 48.043-14.805 94.549-42.88 134.528z"></path>
-            </svg>
+
+<div class="my-3">
+    <form asp-action="About" method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="row mb-3">
+            <div class="col-md-5 col-md-auto mx-auto">
+                <div class="form-group mb-2">
+                    <label asp-for="Description" class="control-label ">О компании</label>
+                    <textarea maxlength="255" asp-for="Description" style="min-height: 40px; max-height: 200px;" rows="3" class="form-control"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+
+                <div class="mb-2">
+                    <div id="AchievementsBlock" class="form-group">
+                        <label asp-for="Achievements" class="control-label">Достижения</label>
+                        @for (int i = 0; i < Model.Achievements.Count; i++)
+                        {
+                            <div id="inputContainer" class="form-group mb-2 d-flex">
+                                <input maxlength="100" asp-for="Achievements" class="form-control" required value="@Model.Achievements[i]" />
+                                <span asp-validation-for="Achievements" class="text-danger"></span>
+                                @if (i > 0)
+                                {
+                                    <button class="btn text-danger" onclick="removeDiv(this)">-</button>
+                                }
+                            </div>
+                        }
+                    </div>
+                    <button class="btn text-primary" onclick="addToBlock('Achievements')">Добавить поле ввода</button>
+                </div>
+
+                <div class="mb-2">
+                    <div id="ServicesBlock">
+                        <label asp-for="Services" class="control-label">Предлагаемые услуги</label>
+                        @for (int i = 0; i < Model.Services.Count; i++)
+                        {
+                            <div id="inputContainer" class="form-group mb-2 d-flex">
+                                <input maxlength="100" asp-for="Services" class="form-control" required value="@Model.Services[i]" />
+                                <span asp-validation-for="Services" class="text-danger"></span>
+                                @if (i > 0)
+                                {
+                                    <button class="btn text-danger" onclick="removeDiv(this)">-</button>
+                                }
+                            </div>
+                        }
+                    </div>
+                    <button class="btn text-primary" onclick="addToBlock('Services')">Добавить поле ввода</button>
+                </div>
+
+                <div class="mb-2">
+                    <div id="CollaborationsBlock">
+                        <label asp-for="Collaborations" class="control-label">Сотрудничество</label>
+                        @for (int i = 0; i < Model.Collaborations.Count; i++)
+                        {
+                            <div id="inputContainer" class="form-group mb-2 d-flex">
+                                <input maxlength="100" asp-for="Collaborations" class="form-control" required value="@Model.Collaborations[i]" />
+                                <span asp-validation-for="Collaborations" class="text-danger"></span>
+                                @if (i > 0)
+                                {
+                                    <button class="btn text-danger" onclick="removeDiv(this)">-</button>
+                                }
+                            </div>
+                        }
+                    </div>
+                    <button class="btn text-primary" onclick="addToBlock('Collaborations')">Добавить поле ввода</button>
+                </div>
+
+                <div class="my-3 text-center">
+                    <input type="submit" value="Сохранить" class="btn text-success mx-1" />
+                </div>
+            </div>
         </div>
-        <div class="home-text-container1">
-            <span class="home-heading11 Card-Heading text-primary-emphasis">Достижение 1</span>
-            <span class="home-text13 Card-Text text-secondary-emphasis">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Integer nec odio. Praesent libero. Sed cursus ante dapibus
-                diam.c Sed nisi. Nulla quis sem at nibh elementum imperdiet.
-            </span>
-        </div>
-    </div>
-    <div class="home-features-card2">
-        <div class="home-icon-container2">
-            <svg viewBox="0 0 1024 1024" class="home-icon17">
-                <path d="M533.333 234.667c-11.776 0-21.333 9.557-21.333 21.333s9.557 21.333 21.333 21.333c46.208 0 83.797 37.589 83.797 83.797 0 11.776 9.557 21.333 21.333 21.333s21.333-9.557 21.333-21.333c0-69.717-56.747-126.464-126.464-126.464z"></path>
-                <path d="M533.333 42.667c-176.469 0-320 143.531-320 320 0 63.403 18.773 124.672 54.357 177.707 0.981 2.005 2.091 3.925 3.413 5.76 77.867 111.189 91.563 146.347 91.563 179.2v128c0 23.552 19.115 42.667 42.667 42.667h85.333c0 11.093 4.693 22.187 12.373 30.293 8.107 7.68 19.2 12.373 30.293 12.373 11.093 0 22.187-4.693 30.293-12.373 7.68-8.107 12.373-19.2 12.373-30.293h85.333c23.552 0 42.667-19.115 42.667-42.667v-128c0-33.365 13.611-68.693 90.965-179.157 38.187-54.4 58.368-117.845 58.368-183.509 0-176.469-143.531-320-320-320zM618.667 810.667h-170.667v-42.667h170.667v42.667zM725.12 497.195c-62.549 89.301-91.435 140.331-101.76 185.472h-47.36v-85.333c0-23.552-19.115-42.667-42.667-42.667s-42.667 19.115-42.667 42.667v85.333h-47.488c-10.24-43.947-38.315-93.867-98.389-180.053-0.939-1.877-2.048-3.712-3.285-5.504-28.032-39.851-42.837-86.357-42.837-134.443 0-129.408 105.259-234.667 234.667-234.667s234.667 105.259 234.667 234.667c0 48.043-14.805 94.549-42.88 134.528z"></path>
-            </svg>
-        </div>
-        <div class="home-text-container2">
-            <span class="home-heading12 Card-Heading text-primary-emphasis">Достижение 2</span>
-            <span class="home-text14 Card-Text text-secondary-emphasis">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Integer nec odio. Praesent libero. Sed cursus ante dapibus
-                diam.c Sed nisi. Nulla quis sem at nibh elementum imperdiet.
-            </span>
-        </div>
-    </div>
-    <div class="home-features-card3">
-        <div class="home-icon-container3">
-            <svg viewBox="0 0 1024 1024" class="home-icon20">
-                <path d="M533.333 234.667c-11.776 0-21.333 9.557-21.333 21.333s9.557 21.333 21.333 21.333c46.208 0 83.797 37.589 83.797 83.797 0 11.776 9.557 21.333 21.333 21.333s21.333-9.557 21.333-21.333c0-69.717-56.747-126.464-126.464-126.464z"></path>
-                <path d="M533.333 42.667c-176.469 0-320 143.531-320 320 0 63.403 18.773 124.672 54.357 177.707 0.981 2.005 2.091 3.925 3.413 5.76 77.867 111.189 91.563 146.347 91.563 179.2v128c0 23.552 19.115 42.667 42.667 42.667h85.333c0 11.093 4.693 22.187 12.373 30.293 8.107 7.68 19.2 12.373 30.293 12.373 11.093 0 22.187-4.693 30.293-12.373 7.68-8.107 12.373-19.2 12.373-30.293h85.333c23.552 0 42.667-19.115 42.667-42.667v-128c0-33.365 13.611-68.693 90.965-179.157 38.187-54.4 58.368-117.845 58.368-183.509 0-176.469-143.531-320-320-320zM618.667 810.667h-170.667v-42.667h170.667v42.667zM725.12 497.195c-62.549 89.301-91.435 140.331-101.76 185.472h-47.36v-85.333c0-23.552-19.115-42.667-42.667-42.667s-42.667 19.115-42.667 42.667v85.333h-47.488c-10.24-43.947-38.315-93.867-98.389-180.053-0.939-1.877-2.048-3.712-3.285-5.504-28.032-39.851-42.837-86.357-42.837-134.443 0-129.408 105.259-234.667 234.667-234.667s234.667 105.259 234.667 234.667c0 48.043-14.805 94.549-42.88 134.528z"></path>
-            </svg>
-        </div>
-        <div class="home-text-container3">
-            <span class="home-heading13 Card-Heading text-primary-emphasis">Достижение 3</span>
-            <span class="home-text15 Card-Text text-secondary-emphasis">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Integer nec odio. Praesent libero. Sed cursus ante dapibus
-                diam.c Sed nisi. Nulla quis sem at nibh elementum imperdiet.
-            </span>
-        </div>
-    </div>
-    <div class="home-features-card4">
-        <div class="home-icon-container4">
-            <svg viewBox="0 0 1024 1024" class="home-icon23">
-                <path d="M533.333 234.667c-11.776 0-21.333 9.557-21.333 21.333s9.557 21.333 21.333 21.333c46.208 0 83.797 37.589 83.797 83.797 0 11.776 9.557 21.333 21.333 21.333s21.333-9.557 21.333-21.333c0-69.717-56.747-126.464-126.464-126.464z"></path>
-                <path d="M533.333 42.667c-176.469 0-320 143.531-320 320 0 63.403 18.773 124.672 54.357 177.707 0.981 2.005 2.091 3.925 3.413 5.76 77.867 111.189 91.563 146.347 91.563 179.2v128c0 23.552 19.115 42.667 42.667 42.667h85.333c0 11.093 4.693 22.187 12.373 30.293 8.107 7.68 19.2 12.373 30.293 12.373 11.093 0 22.187-4.693 30.293-12.373 7.68-8.107 12.373-19.2 12.373-30.293h85.333c23.552 0 42.667-19.115 42.667-42.667v-128c0-33.365 13.611-68.693 90.965-179.157 38.187-54.4 58.368-117.845 58.368-183.509 0-176.469-143.531-320-320-320zM618.667 810.667h-170.667v-42.667h170.667v42.667zM725.12 497.195c-62.549 89.301-91.435 140.331-101.76 185.472h-47.36v-85.333c0-23.552-19.115-42.667-42.667-42.667s-42.667 19.115-42.667 42.667v85.333h-47.488c-10.24-43.947-38.315-93.867-98.389-180.053-0.939-1.877-2.048-3.712-3.285-5.504-28.032-39.851-42.837-86.357-42.837-134.443 0-129.408 105.259-234.667 234.667-234.667s234.667 105.259 234.667 234.667c0 48.043-14.805 94.549-42.88 134.528z"></path>
-            </svg>
-        </div>
-        <div class="home-text-container4">
-            <span class="home-heading14 Card-Heading text-primary-emphasis">Достижение 4</span>
-            <span class="home-text16 Card-Text text-secondary-emphasis">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Integer nec odio. Praesent libero. Sed cursus ante dapibus
-                diam.c Sed nisi. Nulla quis sem at nibh elementum imperdiet.
-            </span>
-        </div>
-    </div>
-    <div class="home-features-card5">
-        <div class="home-icon-container5">
-            <svg viewBox="0 0 1024 1024" class="home-icon26">
-                <path d="M533.333 234.667c-11.776 0-21.333 9.557-21.333 21.333s9.557 21.333 21.333 21.333c46.208 0 83.797 37.589 83.797 83.797 0 11.776 9.557 21.333 21.333 21.333s21.333-9.557 21.333-21.333c0-69.717-56.747-126.464-126.464-126.464z"></path>
-                <path d="M533.333 42.667c-176.469 0-320 143.531-320 320 0 63.403 18.773 124.672 54.357 177.707 0.981 2.005 2.091 3.925 3.413 5.76 77.867 111.189 91.563 146.347 91.563 179.2v128c0 23.552 19.115 42.667 42.667 42.667h85.333c0 11.093 4.693 22.187 12.373 30.293 8.107 7.68 19.2 12.373 30.293 12.373 11.093 0 22.187-4.693 30.293-12.373 7.68-8.107 12.373-19.2 12.373-30.293h85.333c23.552 0 42.667-19.115 42.667-42.667v-128c0-33.365 13.611-68.693 90.965-179.157 38.187-54.4 58.368-117.845 58.368-183.509 0-176.469-143.531-320-320-320zM618.667 810.667h-170.667v-42.667h170.667v42.667zM725.12 497.195c-62.549 89.301-91.435 140.331-101.76 185.472h-47.36v-85.333c0-23.552-19.115-42.667-42.667-42.667s-42.667 19.115-42.667 42.667v85.333h-47.488c-10.24-43.947-38.315-93.867-98.389-180.053-0.939-1.877-2.048-3.712-3.285-5.504-28.032-39.851-42.837-86.357-42.837-134.443 0-129.408 105.259-234.667 234.667-234.667s234.667 105.259 234.667 234.667c0 48.043-14.805 94.549-42.88 134.528z"></path>
-            </svg>
-        </div>
-        <div class="home-text-container5">
-            <span class="home-heading15 Card-Heading text-primary-emphasis">Достижение 5</span>
-            <span class="home-text17 Card-Text text-secondary-emphasis">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Integer nec odio. Praesent libero. Sed cursus ante dapibus
-                diam.c Sed nisi. Nulla quis sem at nibh elementum imperdiet.
-            </span>
-        </div>
-    </div>
-    <div class="home-features-card6">
-        <div class="home-icon-container6">
-            <svg viewBox="0 0 1024 1024" class="home-icon29">
-                <path d="M533.333 234.667c-11.776 0-21.333 9.557-21.333 21.333s9.557 21.333 21.333 21.333c46.208 0 83.797 37.589 83.797 83.797 0 11.776 9.557 21.333 21.333 21.333s21.333-9.557 21.333-21.333c0-69.717-56.747-126.464-126.464-126.464z"></path>
-                <path d="M533.333 42.667c-176.469 0-320 143.531-320 320 0 63.403 18.773 124.672 54.357 177.707 0.981 2.005 2.091 3.925 3.413 5.76 77.867 111.189 91.563 146.347 91.563 179.2v128c0 23.552 19.115 42.667 42.667 42.667h85.333c0 11.093 4.693 22.187 12.373 30.293 8.107 7.68 19.2 12.373 30.293 12.373 11.093 0 22.187-4.693 30.293-12.373 7.68-8.107 12.373-19.2 12.373-30.293h85.333c23.552 0 42.667-19.115 42.667-42.667v-128c0-33.365 13.611-68.693 90.965-179.157 38.187-54.4 58.368-117.845 58.368-183.509 0-176.469-143.531-320-320-320zM618.667 810.667h-170.667v-42.667h170.667v42.667zM725.12 497.195c-62.549 89.301-91.435 140.331-101.76 185.472h-47.36v-85.333c0-23.552-19.115-42.667-42.667-42.667s-42.667 19.115-42.667 42.667v85.333h-47.488c-10.24-43.947-38.315-93.867-98.389-180.053-0.939-1.877-2.048-3.712-3.285-5.504-28.032-39.851-42.837-86.357-42.837-134.443 0-129.408 105.259-234.667 234.667-234.667s234.667 105.259 234.667 234.667c0 48.043-14.805 94.549-42.88 134.528z"></path>
-            </svg>
-        </div>
-        <div class="home-text-container6">
-            <span class="home-heading16 Card-Heading text-primary-emphasis">Достижение 6</span>
-            <span class="home-text18 Card-Text text-secondary-emphasis">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Integer nec odio. Praesent libero. Sed cursus ante dapibus
-                diam.c Sed nisi. Nulla quis sem at nibh elementum imperdiet.
-            </span>
-        </div>
-    </div>
+    </form>
 </div>
-<div id="resources" class="home-service1">
-    <div class="home-content-container2">
-        <div class="home-intro-text2">
-            <h1 class="home-heading17 Section-Heading text-primary-emphasis">Услуги 1</h1>
-            <span class="home-text26 Section-Text text-secondary-emphasis">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
-                nec odio. Praesent libero. Sed cursus ante dapibus diam.c Sed
-                nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis
-                ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta.
-                Mauris massa. Vestibulum lacinia arcu eget nulla. Class aptent
-                taciti sociosqu ad litora torquent per conubia nostra, per
-                inceptos himenaeos.
-            </span>
-            <button class="home-cta-btn1 Anchor btn-outline-primary">Узнать больше</button>
-        </div>
-    </div>
-</div>
-<div id="resources" class="home-service2">
-    <div class="home-content-container3">
-        <div class="home-intro-text3">
-            <h1 class="home-heading18 Section-Heading text-primary-emphasis">Услуги 2</h1>
-            <span class="home-text27 Section-Text text-secondary-emphasis">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
-                nec odio. Praesent libero. Sed cursus ante dapibus diam.c Sed
-                nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis
-                ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta.
-                Mauris massa. Vestibulum lacinia arcu eget nulla. Class aptent
-                taciti sociosqu ad litora torquent per conubia nostra, per
-                inceptos himenaeos.
-            </span>
-            <button class="home-cta-btn1 Anchor btn-outline-primary">Узнать больше</button>
-        </div>
-    </div>
-</div>
-<div id="resources" class="home-service3">
-    <div class="home-content-container4">
-        <div class="home-intro-text4">
-            <h1 class="home-heading19 Section-Heading text-primary-emphasis">Услуги 3</h1>
-            <span class="home-text28 Section-Text text-secondary-emphasis">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
-                nec odio. Praesent libero. Sed cursus ante dapibus diam.c Sed
-                nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis
-                ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta.
-                Mauris massa. Vestibulum lacinia arcu eget nulla. Class aptent
-                taciti sociosqu ad litora torquent per conubia nostra, per
-                inceptos himenaeos.
-            </span>
-            <button class="home-cta-btn1 Anchor btn-outline-primary">Узнать больше</button>
-        </div>
-    </div>
-</div>
-<div id="resources" class="home-service4">
-    <div class="home-content-container5">
-        <div class="home-intro-text5">
-            <h1 class="home-heading20 Section-Heading text-primary-emphasis">Услуги 4</h1>
-            <span class="home-text29 Section-Text text-secondary-emphasis">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
-                nec odio. Praesent libero. Sed cursus ante dapibus diam.c Sed
-                nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis
-                ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta.
-                Mauris massa. Vestibulum lacinia arcu eget nulla. Class aptent
-                taciti sociosqu ad litora torquent per conubia nostra, per
-                inceptos himenaeos.
-            </span>
-            <button class="home-cta-btn1 Anchor btn-outline-primary">Узнать больше</button>
-        </div>
-    </div>
-</div>
+
+
+@section scripts{
+    <script>
+        function addToBlock(inputName){
+            var htmlLine = "";
+            var divId = '#' + inputName + "Block";
+
+            htmlLine += '<div id="inputContainer" class="form-group mb-2 d-flex">' +
+                            '<input maxlength="100" class="form-control" required="" value="" type="text" data-val="true" data-val-required="The ' + inputName + ' field is required." id="' + inputName + '" name="' + inputName + '"/>' +
+                            '<span class="text-danger field-validation-valid" data-valmsg-for="' + inputName + '" data-valmsg-replace="true"></span>' +
+                            '<button class="btn text-danger" onclick="removeDiv(this)">-</button>' +
+                        '</div>';
+
+            $(divId).append(htmlLine);
+        }
+
+        function removeDiv(btn){
+            ((btn.parentNode).parentNode).removeChild(btn.parentNode);
+        }
+    </script>
+}
