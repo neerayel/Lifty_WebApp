@@ -18,35 +18,70 @@
             <div class="card-body">
                 <br>
                 <dl class="row col-sm-0 mx-auto">
-                    <dt class="col-sm-0">
+                    <dt class="col-sm-0 text-dark">
                         Название товара
                     </dt>
-                    <dd class="col-sm-0">
+                    <dd class="col-sm-0 text-primary">
                         @Model.Name
                     </dd>
-                    <dt class="col-sm-0">
+
+                    <dt class="col-sm-0 text-dark">
                         Производитель
                     </dt>
-                    <dd class="col-sm-0">
+                    <dd class="col-sm-0 text-primary">
                         @Model.Brand
                     </dd>
-                    <dt class="col-sm-0">
+
+                    <dt class="col-sm-0 text-dark">
                         Способ доставки
                     </dt>
-                    <dd class="col-sm-0">
+                    <dd class="col-sm-0 text-primary">
                         @Model.Delivery
                     </dd>
-                    <dt class="col-sm-0">
+
+                    <dt class="col-sm-0 text-dark">
                         Способ оплаты
                     </dt>
-                    <dd class="col-sm-0">
+                    <dd class="col-sm-0 text-primary">
                         @Model.Payment
                     </dd>
-                    <dt class="col-sm-0">
+
+                    <dt class="col-sm-0 text-dark">
                         Описание
                     </dt>
-                    <dd class="col-sm-0">
+                    <dd class="col-sm-0 text-primary">
                         @Model.Description
+                    </dd>
+
+                    <dt class="col-sm-0 text-dark">
+                        Характеристики
+                    </dt>
+                    <dd class="col-sm-0 text-primary">
+                        <table class="form-group mb-2 d-flex">
+                            @for (int i = 0; i < Model.StatParameters.Count; i++)
+                            {
+                                <tr>
+                                    <th>
+                                        <p class="text-primary">@Model.StatParameters[i]</p>
+                                    </th>
+                                    <th>
+                                        <p class="text-primary">@Model.StatValues[i]</p>
+                                    </th>
+                                </tr>
+                            }
+                        </table>
+                    </dd>
+
+                    <dt class="col-sm-0 text-dark">
+                        Фотографии/изображения
+                    </dt>
+                    <dd class="col-sm-0">
+                        @foreach (var image in Model.ImgPath)
+                        {
+                            <div class="my-2">
+                                <img id="loadedImg" class="img-thumbnail mb-2" height="200" width="200" src="@image" />
+                            </div>
+                        }
                     </dd>
                 </dl>
                 <br>

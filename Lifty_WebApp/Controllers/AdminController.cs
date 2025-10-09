@@ -15,12 +15,18 @@ namespace Lifty_WebApp.Controllers
     [Authorize(AuthenticationSchemes = AuthenticationSchemes.Schema, Roles = AuthenticationSchemes.Role)]
     public class AdminController : Controller
     {
+        public string WebRootPath { private get; set; }
         private readonly IItemRepository _itemRepository;
         private readonly IStoredDataRepository _dataRepository;
-        public AdminController(IItemRepository itemRepository, IStoredDataRepository dataRepository)
+        private readonly IImageRepository _imageRepository;
+
+        public AdminController(IWebHostEnvironment appEnvironment, IItemRepository itemRepository, 
+            IStoredDataRepository dataRepository, IImageRepository imageRepository)
         {
+            WebRootPath = appEnvironment.WebRootPath;
             _itemRepository = itemRepository;
             _dataRepository = dataRepository;
+            _imageRepository = imageRepository;
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
@@ -101,8 +107,26 @@ namespace Lifty_WebApp.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateItem(ItemModel itemModel)
+        public async Task<IActionResult> CreateItem(ItemModel itemModel, List<IFormFile> loadedImg)
         {
+            itemModel.ImgPath = new List<string>();
+            foreach (var image in loadedImg)
+            {
+                try
+                {
+                    string imgPath = "";
+                    if (image != null || !String.IsNullOrWhiteSpace(image.FileName))
+                    {
+                        imgPath = "/img/content/" + Guid.NewGuid().ToString() + image.FileName;
+                        string fullPath = WebRootPath + imgPath;
+                        await _imageRepository.SaveImageAsync(image, fullPath);
+
+                        itemModel.ImgPath.Add(imgPath);
+                    }
+                }
+                catch { }
+            }
+            
             var item = await _itemRepository.CreateAsync(itemModel);
             return RedirectToAction(nameof(ItemDetails), new { id = item.Id });
         }
@@ -137,14 +161,20 @@ namespace Lifty_WebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteItemByIdConfirmed(string id)
         {
+            var item = await _itemRepository.GetByIdAsync(id);
+            foreach(var imgPath in item.ImgPath)
+            {
+                _imageRepository.DeleteImage(WebRootPath + imgPath);
+            }
+
             await _itemRepository.DeleteAsync(id);
             return RedirectToAction(nameof(Catalog));
         }
 
         public async Task<IActionResult> ItemDetails(string id)
         {
-            var test = await _itemRepository.GetByIdAsync(id);
-            return View(test);
+            var item = await _itemRepository.GetByIdAsync(id);
+            return View(item);
         }
     }
 }

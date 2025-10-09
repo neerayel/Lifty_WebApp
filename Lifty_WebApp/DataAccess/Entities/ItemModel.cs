@@ -8,7 +8,8 @@
         public string Delivery { get; set; }
         public string Payment { get; set; }
         public string Description { get; set; }
-        public Dictionary<string, string> Stat { get; set; }
+        public List<string> StatParameters { get; set; }
+        public List<string> StatValues { get; set; }
 
         public List<string> ImgPath { get; set; }
     }
