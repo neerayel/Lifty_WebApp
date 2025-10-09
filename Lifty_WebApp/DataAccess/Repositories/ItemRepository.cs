@@ -1,6 +1,5 @@
 ﻿using Lifty_WebApp.DataAccess.Entities;
 using Lifty_WebApp.DataAccess.Interfaces;
-using System.IO;
 using System.Text.Json;
 
 namespace Lifty_WebApp.DataAccess.Repositories

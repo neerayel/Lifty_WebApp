@@ -5,6 +5,7 @@
     ViewData["Title"] = "ADMIN - Добавление нового товара";
 }
 
+
 <div class="">
     <div class="container">
         <div class="my-2">
@@ -14,40 +15,62 @@
             </div>
         </div>
 
-        <form asp-action="CreateItem" method="post">
+        <form asp-action="CreateItem" enctype="multipart/form-data" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="row mb-3">
                 <div class="col-md-5 col-md-auto mx-auto">
                     <div class="form-group">
-                        <label asp-for="Name" class="control-label">Название товара</label>
-                        <input maxlength="30" asp-for="Name" class="form-control" required />
+                        <label asp-for="Name" class="control-label text-dark">Название товара</label>
+                        <input maxlength="30" asp-for="Name" class="form-control text-primary" required />
                         <span asp-validation-for="Name" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <label asp-for="Brand" class="control-label">Производитель</label>
-                        <input maxlength="30" asp-for="Brand" class="form-control" required />
+                        <label asp-for="Brand" class="control-label text-dark">Производитель</label>
+                        <input maxlength="30" asp-for="Brand" class="form-control text-primary" required />
                         <span asp-validation-for="Brand" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <label asp-for="Delivery" class="control-label">Способ доставки</label>
-                        <input maxlength="30" asp-for="Delivery" class="form-control" required />
+                        <label asp-for="Delivery" class="control-label text-dark">Способ доставки</label>
+                        <input maxlength="30" asp-for="Delivery" class="form-control text-primary" required />
                         <span asp-validation-for="Delivery" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <label asp-for="Payment" class="control-label">Способ оплаты</label>
-                        <input maxlength="30" asp-for="Payment" class="form-control" required />
+                        <label asp-for="Payment" class="control-label text-dark">Способ оплаты</label>
+                        <input maxlength="30" asp-for="Payment" class="form-control text-primary" required />
                         <span asp-validation-for="Payment" class="text-danger"></span>
                     </div>
                     <div class="form-group ml-auto">
-                        <label asp-for="Description" class="control-label">Описание</label>
-                        <textarea maxlength="115" asp-for="Description" style="min-height: 40px; max-height: 200px;" rows="3" class="form-control"></textarea>
+                        <label asp-for="Description" class="control-label text-dark">Описание</label>
+                        <textarea maxlength="115" asp-for="Description" style="min-height: 40px; max-height: 200px;" rows="3" class="form-control text-primary"></textarea>
                         <span asp-validation-for="Description" class="text-danger"></span>
                     </div>
 
+                    <div class="form-group ml-auto">
+                        <label asp-for="StatValues" class="control-label text-dark">Характеристики</label>
+                        <table id="statTable" class="form-group mb-2 d-flex">
+                            <tr>
+                                <th>
+                                    <input maxlength="100" asp-for="StatParameters" class="form-control text-primary" required />
+                                    <span asp-validation-for="StatParameters" class="text-danger"></span>
+                                </th>
+                                <th>
+                                    <input maxlength="100" asp-for="StatValues" class="form-control text-primary" required />
+                                    <span asp-validation-for="StatValues" class="text-danger"></span>
+                                </th>
+                            </tr>
+                        </table>
+                        <button type="button" class="btn text-primary" onclick="addTableRow()">Добавить строку</button>
+                    </div>
 
-                    <div></div>
-                    <div></div>
-
+                    <div class="form-group">
+                        <label class="control-label">Фотографии/изображения</label><br />
+                        <div class="form-group" id="imgContainer">
+                            <div class="my-2">
+                                <input type="file" name="loadedImg" placeholder="Выберите изображение" class="form-control-file" />
+                            </div>
+                        </div>
+                        <button type="button" class="btn text-primary" onclick="addImg()">Добавить изображение</button>
+                    </div>
 
                     <div class="my-3 text-center">
                         <input type="submit" value="Сохранить товар" class="btn text-success mx-1" />
@@ -63,4 +86,50 @@
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
+
+    <script>
+        function addTableRow(){
+            var htmlLine = "";
+            var divId = "#statTable";
+
+            htmlLine += '<tr>' + 
+                            '<th>' +
+                                '<input maxlength="100" class="form-control valid" required="" type="text" data-val="true" data-val-required="The StatParameters field is required." id="StatParameters" name="StatParameters" value="" aria-describedby="StatParameters-error" aria-invalid="false">' +
+                                '<span class="text-danger field-validation-valid" data-valmsg-for="StatParameters" data-valmsg-replace="true"></span>' +
+                            '</th>' +
+                            '<th>' +
+                                '<input maxlength="100" class="form-control valid" required="" type="text" data-val="true" data-val-required="The StatValues field is required." id="StatValues" name="StatValues" value="" aria-describedby="StatValues-error" aria-invalid="false">' +
+                                '<span class="text-danger field-validation-valid" data-valmsg-for="StatValues" data-valmsg-replace="true"></span>' +
+                            '</th>' +
+                            '<th>' +
+                                '<button class="btn text-danger" onclick="removeTr(this)">-</button>' +
+                            '</th>' +
+                        '</tr>';
+
+
+            $(divId).append(htmlLine);
+        }
+
+        function addImg(){
+            var htmlLine = "";
+            var divId = "#imgContainer";
+
+            htmlLine += '<div class="my-2">' +
+                            '<input type="file" name="loadedImg" placeholder="Выберите изображение" class="form-control-file" />' +
+                            '<button class="btn text-danger" onclick="removeImg(this)">-</button>' +
+                        '</div>';
+
+            $(divId).append(htmlLine);
+        }
+
+
+        function removeTr(btn){
+            (((btn.parentNode).parentNode).parentNode).removeChild((btn.parentNode).parentNode);
+        }
+
+        function removeImg(btn){
+            ((btn.parentNode).parentNode).removeChild(btn.parentNode);
+        }
+    </script>
+
     }

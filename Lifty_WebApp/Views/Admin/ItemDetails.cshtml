@@ -18,38 +18,75 @@
             <div class="card-body">
                 <form asp-action="UpdateItem" asp-route-id="@Model.Id" method="post">
                     <div class="form-group">
-                        <label asp-for="Name" class="font-weight-bold">Название товара:</label>
-                        <p id="Name-text">@Model.Name</p>
-                        <input maxlength="30" type="text" asp-for="Name" id="Name" class="form-control" style="display:none" required />
+                        <label asp-for="Name" class="font-weight-bold text-dark">Название товара:</label>
+                        <p class="text-primary" id="Name-text">@Model.Name</p>
+                        <input maxlength="30" type="text" asp-for="Name" id="Name" class="form-control text-primary" style="display:none" required />
                     </div>
 
                     <div class="form-group">
-                        <label asp-for="Brand" class="font-weight-bold">Производитель:</label>
-                        <p id="Brand-text">@Model.Brand</p>
-                        <input maxlength="30" type="text" asp-for="Brand" id="Brand" class="form-control" style="display:none" required />
+                        <label asp-for="Brand" class="font-weight-bold text-dark">Производитель:</label>
+                        <p class="text-primary" id="Brand-text">@Model.Brand</p>
+                        <input maxlength="30" type="text" asp-for="Brand" id="Brand" class="form-control text-primary" style="display:none" required />
                     </div>
 
                     <div class="form-group">
-                        <label asp-for="Delivery" class="font-weight-bold">Способ доставки:</label>
-                        <p id="Delivery-text">@Model.Delivery</p>
-                        <input maxlength="30" type="text" asp-for="Delivery" id="Delivery" class="form-control" style="display:none" required />
+                        <label asp-for="Delivery" class="font-weight-bold text-dark">Способ доставки:</label>
+                        <p class="text-primary" id="Delivery-text">@Model.Delivery</p>
+                        <input maxlength="30" type="text" asp-for="Delivery" id="Delivery" class="form-control text-primary" style="display:none" required />
                     </div>
 
                     <div class="form-group">
-                        <label asp-for="Payment" class="font-weight-bold">Способ оплаты:</label>
-                        <p id="Payment-text">@Model.Payment</p>
-                        <input maxlength="30" type="text" asp-for="Payment" id="Payment" class="form-control" style="display:none" required />
+                        <label asp-for="Payment" class="font-weight-bold text-dark">Способ оплаты:</label>
+                        <p class="text-primary" id="Payment-text">@Model.Payment</p>
+                        <input maxlength="30" type="text" asp-for="Payment" id="Payment" class="form-control text-primary" style="display:none" required />
                     </div>
 
                     <div class="form-group">
-                        <label asp-for="Description" class="font-weight-bold">Description:</label>
-                        <p id="Description-text">@Model.Description</p>
-                        <input maxlength="115" type="text" asp-for="Description" id="Description" class="form-control" style="display:none" required />
+                        <label asp-for="Description" class="font-weight-bold text-dark">Описание:</label>
+                        <p class="text-primary" id="Description-text">@Model.Description</p>
+                        <input maxlength="115" type="text" asp-for="Description" id="Description" class="form-control text-primary" style="display:none" required />
                     </div>
-                    <div class="my-2">
-                        <input type="submit" value="Сохранить" id="saveButton" class="btn btn-primary" style="display:none" />
-                        <input type="button" value="Редактировать" id="editButton" class="btn btn-secondary" onclick="toggleEditing()" />
-                        <input type="button" value="Отменить" id="cancelButton" class="btn btn-secondary" onclick="cancelEditing()" style="display:none" />
+
+                    <div class="form-group ml-auto">
+                        <label asp-for="StatValues" class="control-label text-dark">Характеристики</label>
+                        <table id="statTable" class="form-group mb-2 d-flex">
+                            @for (int i = 0; i < Model.StatParameters.Count; i++)
+                            {
+                                <tr>
+                                    <th>
+                                        <p class="text-primary" id="StatParameters-text">@Model.StatParameters[i]</p>
+                                        <input maxlength="115" type="text" asp-for="StatParameters[@i]" id="StatParameters" class="form-control text-primary" style="display:none" required />
+                                        <span asp-validation-for="StatParameters" class="text-danger"></span>
+                                    </th>
+                                    <th>
+                                        <p class="text-primary" id="StatValues-text">@Model.StatValues[i]</p>
+                                        <input maxlength="115" type="text" asp-for="StatValues[@i]" id="StatValues" class="form-control text-primary" style="display:none" required />
+                                        <span asp-validation-for="StatValues" class="text-danger"></span>
+                                    </th>
+                                </tr>
+                            }
+                        </table>
+                    </div>
+
+                    @* <div class="form-group ml-auto mb-5">
+                        <label class="font-weight-bold text-dark">Фотографии/изображения:</label>
+                        <div class="form-group" id="imgContainer">
+                            @foreach (var image in Model.ImgPath)
+                            {
+                                <div class="my-2">
+                                    <img id="loadedImg" class="img-thumbnail mb-2" height="200" width="200" src="@image" />
+                                    <input id="inputImg" type="file" name="loadedImg" placeholder="Выберите изображение" value="@image" class="form-control-file" style="display:none" />
+                                    <button id="rmImgButton" class="btn text-danger" onclick="removeTr(this)" style="display:none">-</button>
+                                </div>
+                            }
+                        </div>
+                        <button type="button" id="addImgButton" class="btn text-primary" onclick="addImg()" style="display:none">Добавить изображение</button>
+                    </div> *@
+
+                    <div class="mt-2 mb-5">
+                        <input type="submit" value="Сохранить" id="saveButton" class="btn btn-success mb-2" style="display:none" />
+                        <input type="button" value="Редактировать" id="editButton" class="btn btn-secondary mb-2" onclick="toggleEditing()" />
+                        <input type="button" value="Отменить" id="cancelButton" class="btn btn-secondary mb-2" onclick="cancelEditing()" style="display:none" />
                     </div>
                 </form>
                 <a asp-action="DeleteItem" asp-route-id="@Model.Id" class="btn text-danger mx-1">Удалить товар</a>
@@ -66,16 +103,24 @@
         const inputDelivery = "Delivery";
         const inputPayment = "Payment";
         const inputDescription = "Description";
+        const inputStatParameters = "StatParameters";
+        const inputStatValues = "StatValues";
+        const inputImg = "inputImg";
 
         const textName = "Name-text";
         const textBrand = "Brand-text";
         const textDelivery = "Delivery-text";
         const textPayment = "Payment-text";
         const textDescription = "Description-text";
+        const textStatParameters = "StatParameters-text";
+        const textStatValues = "StatValues-text";
+        const loadedImg = "loadedImg";
 
         const saveButton = "saveButton";
         const cancelButton = "cancelButton";
         const editButton = "editButton";
+        const addImgButton = "addImgButton";
+        const rmImgButton = "rmImgButton";
 
         function applyStyleFor(elements, styleName, value) {
             for (var i = 0; i < elements.length; i++) {
@@ -87,14 +132,31 @@
         }
 
         function toggleEditing() {
-            applyStyleFor([inputName, inputBrand, inputDelivery, inputPayment, inputDescription, saveButton, cancelButton], "display", "inline");
-            applyStyleFor([editButton, textName, textBrand, textDelivery, textPayment, textDescription], "display", "none");
+            applyStyleFor([inputName, inputBrand, inputDelivery, inputPayment, inputDescription, inputStatParameters, inputStatValues, inputImg, saveButton, cancelButton, addImgButton, rmImgButton], "display", "block");
+            applyStyleFor([editButton, textName, textBrand, textDelivery, textPayment, textDescription, textStatParameters, textStatValues, loadedImg], "display", "none");
 
         }
 
         function cancelEditing() {
-            applyStyleFor([inputName, inputBrand, inputDelivery, inputPayment, inputDescription, saveButton, cancelButton], "display", "none");
-            applyStyleFor([editButton, textName, textBrand, textDelivery, textPayment, textDescription], "display", "inline");
+            applyStyleFor([inputName, inputBrand, inputDelivery, inputPayment, inputDescription, inputStatParameters, inputStatValues, inputImg, saveButton, cancelButton, addImgButton, rmImgButton], "display", "none");
+            applyStyleFor([editButton, textName, textBrand, textDelivery, textPayment, textDescription, textStatParameters, textStatValues, loadedImg], "display", "block");
+        }
+
+
+        function addImg(){
+            var htmlLine = "";
+            var divId = "#imgContainer";
+
+            htmlLine += '<div class="my-2">' +
+                            '<input type="file" name="loadedImg" id="loadedImg" placeholder="Выберите изображение" class="form-control-file" />' +
+                            '<button id="rmImgButton" class="btn text-danger" onclick="removeImg(this)">-</button>' +
+                        '</div>';
+
+            $(divId).append(htmlLine);
+        }
+
+        function removeImg(btn){
+            ((btn.parentNode).parentNode).removeChild(btn.parentNode);
         }
     </script>
 }
