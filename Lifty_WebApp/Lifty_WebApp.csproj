@@ -9,6 +9,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="8.14.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.7" />
+    <PackageReference Include="React.Web" Version="5.2.12" />
   </ItemGroup>
 
   <ItemGroup>

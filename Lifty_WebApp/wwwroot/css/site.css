@@ -1,6 +1,9 @@
 @import url("bootswatch.css");
 
-.image-thumb{
+
+
+
+.image-thumb {
     max-width: 400px;
     max-height: 50px;
 }
@@ -298,7 +301,6 @@
     padding-bottom: var(--dl-layout-space-tenunits);
     background-size: cover;
     justify-content: center;
-    background-image: url("https://shop.sadi.kz/images/placeholder.png");
     background-repeat: no-repeat;
     background-position: center;
 }
@@ -388,6 +390,7 @@
 }
 
 .home-features-card1 {
+    color: #c77dff;
     width: 30%;
     display: flex;
     align-items: flex-start;
@@ -397,6 +400,7 @@
     padding-right: var(--dl-layout-space-doubleunit);
     flex-direction: row;
     padding-bottom: var(--dl-layout-space-doubleunit);
+    border: dashed;
 }
 
 .home-icon-container1 {
@@ -694,7 +698,7 @@
     border-radius: var(--dl-layout-radius-radius4);
     flex-direction: column;
     justify-content: center;
-    background-color: var(--bs-gray-100);
+    background-color: rgba(20, 20, 35, 0.7);
 }
 
 .home-text20 {
@@ -762,7 +766,6 @@
     padding-bottom: var(--dl-layout-space-tenunits);
     background-size: contain;
     justify-content: center;
-    background-image: url('https://shop.sadi.kz/images/placeholder.png');
     background-repeat: no-repeat;
     background-position: left;
 }
@@ -829,7 +832,6 @@
     padding-bottom: var(--dl-layout-space-tenunits);
     background-size: contain;
     justify-content: center;
-    background-image: url('https://shop.sadi.kz/images/placeholder.png');
     background-repeat: no-repeat;
     background-position: right;
 }
@@ -895,7 +897,6 @@
     padding-bottom: var(--dl-layout-space-tenunits);
     background-size: contain;
     justify-content: center;
-    background-image: url('https://shop.sadi.kz/images/placeholder.png');
     background-repeat: no-repeat;
     background-position: left;
 }
@@ -961,7 +962,6 @@
     padding-bottom: var(--dl-layout-space-tenunits);
     background-size: contain;
     justify-content: center;
-    background-image: url('https://shop.sadi.kz/images/placeholder.png');
     background-repeat: no-repeat;
     background-position: right;
 }

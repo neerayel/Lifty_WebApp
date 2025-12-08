@@ -22,23 +22,28 @@ namespace Lifty_WebApp.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var contactsData = await _dataRepository.GetContactsDataAsync();
-            return View(contactsData);
+            ViewBag.ContactsData = await _dataRepository.GetContactsDataAsync();
+            ViewBag.CatalogDemo = await _itemRepository.GetRangeAsync(3);
+            var data = await _dataRepository.GetAboutDataAsync();
+            return View(data);
         }
 
         public async Task<IActionResult> Catalog()
         {
-            return View();
+            var catalogData = await _itemRepository.GetAllAsync();
+            return View(catalogData);
         }
 
         public async Task<IActionResult> Servicing()
         {
-            return View();
+            var data = await _dataRepository.GetAboutDataAsync();
+            return View(data);
         }
 
         public async Task<IActionResult> About()
         {
-            return View();
+            var dataModel = await _dataRepository.GetAboutDataAsync();
+            return View(dataModel);
         }
 
         public async Task<IActionResult> Contacts()
