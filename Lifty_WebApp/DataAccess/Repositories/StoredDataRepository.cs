@@ -16,7 +16,13 @@ namespace Lifty_WebApp.DataAccess.Repositories
             {
                 return await JsonSerializer.DeserializeAsync<ContactsModel>(openStream);
             }
-            catch { return new ContactsModel(); }
+            catch { return new ContactsModel() {    Email = "",
+                                                    Number = "",
+                                                    Address = "",
+                                                    WorkTime = "",
+                                                    YandexMapLink = ""
+                                                };
+            }
         }
 
         public async Task UpdateContactsDataAsync(ContactsModel model)
