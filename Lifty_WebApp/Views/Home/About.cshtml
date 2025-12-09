@@ -4,21 +4,26 @@
     ViewData["Title"] = "О Компании";
 }
 
+<a asp-area="" asp-controller="Home" asp-action="Index">
+    <div id="resources" class="home-intro-secondary content">
+        <div class="home-content-container1"></div>
+    </div>
+</a>
 
 <div class="content">
-    <div id="inspiration" class="home-features">
+    <div id="inspiration" class="info-box">
         <div class="home-heading-container1">
-            <h1 class="home-text11 Section-Heading text-primary-emphasis">О Компании</h1>
-            <span class="home-text12 Section-Text text-secondary-emphasis">
+            <h1 class="home-text11 Section-Heading highlight">О Компании</h1>
+            <span class="home-text12 Section-Text subtitle">
                 @Model.Description
             </span>
         </div>
     </div>
 
-    <div class="content">
-        <h1 class="home-text11 Section-Heading text-primary-emphasis">Подробнее</h1>
+    <div class="info-box">
+        <h1 class="home-text11 Section-Heading highlight">Подробнее о нас</h1>
         <div class="home-cards-container1">
-            @foreach (var aTxt in Model.Achievements)
+            @foreach (var achvmnt in Model.Achievements)
             {
                 <div class="home-features-card1">
                     <div class="home-icon-container1">
@@ -28,26 +33,27 @@
                         </svg>
                     </div>
                     <div class="home-text-container1">
-                        <span class="home-heading11 Card-Heading text-primary-emphasis">@aTxt</span>
+                        <span class="home-text13 Card-Text highlight">
+                            @achvmnt
+                        </span>
                     </div>
                 </div>
             }
         </div>
     </div>
 
-    <div class="content">
-        <h1 class="home-text11 Section-Heading text-primary-emphasis">Предлагаемые услуги:</h1>
+    <div class="info-box">
+        <h1 class="home-text11 Section-Heading highlight">Предлагаемые услуги:</h1>
         <div class="home-cards-container2">
             @foreach (var sTxt in Model.Services)
             {
-                <div id="resources" class="home-service1">
+                <div id="resources" class="home-intro-end info-box content">
                     <div class="home-content-container2">
                         <div class="home-intro-text2">
-                            <h1 class="home-heading17 Section-Heading text-primary-emphasis">@sTxt</h1>
-                            <span class="home-text26 Section-Text text-secondary-emphasis">
+                            <h1 class="home-heading17 Section-Heading highlight">@sTxt</h1>
+                            <span class="home-text26 Section-Text subtitle">
                                 @sTxt
                             </span>
-                            <button class="home-cta-btn1 Anchor btn-outline-primary">Узнать больше</button>
                         </div>
                     </div>
                 </div>
@@ -55,19 +61,15 @@
         </div>
     </div>
 
-    <div class="content">
-        <h1 class="home-text11 Section-Heading text-primary-emphasis">Мы сотрудничаем:</h1>
+    <div class="info-box">
+        <h1 class="home-text11 Section-Heading highlight">Мы сотрудничаем:</h1>
         <div class="home-cards-container3">
             @foreach (var cTxt in Model.Collaborations)
             {
-                <div id="resources" class="home-service1">
+                <div id="resources" class="home-intro-end info-box content">
                     <div class="home-content-container2">
                         <div class="home-intro-text2">
-                            <h1 class="home-heading17 Section-Heading text-primary-emphasis">@cTxt</h1>
-                            <span class="home-text26 Section-Text text-secondary-emphasis">
-                                @cTxt
-                            </span>
-                            <button class="home-cta-btn1 Anchor btn-outline-primary">Узнать больше</button>
+                            <h2 class="home-heading17 Section-Heading highlight">@cTxt</h2>
                         </div>
                     </div>
                 </div>
@@ -76,3 +78,24 @@
     </div>
 </div>
 
+<div id="resources" class="home-map custom-bg-col">
+    <div class="my-3 text-light">
+        <ul class="nav text-center">
+            <li class="nav-item subtitle me-3">
+                @ViewBag.ContactsData.Email
+            </li>
+            <li class="nav-item subtitle me-3">
+                @ViewBag.ContactsData.Number
+            </li>
+            <li class="nav-item subtitle me-3">
+                @ViewBag.ContactsData.Address
+            </li>
+            <li class="nav-item subtitle">
+                Пн-Пт 8:00-18:00
+            </li>
+        </ul>
+    </div>
+    <div class="home-content-container6">
+        <iframe src="@ViewBag.ContactsData.YandexMapLink" frameborder="0" class="home-yandex-maps"></iframe>
+    </div>
+</div>

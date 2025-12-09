@@ -1,6 +1,6 @@
 ﻿// Configuration variables - all values bound to these variables
-const LINE_COUNT = 50;
-const LINE_OPACITY = 0.5;
+const LINE_COUNT = 80;
+const LINE_OPACITY = 1.5;
 const ANIMATION_SPEED = 0.05;
 const COLOR_HUE = 270; // Base hue for purple color (270 is purple)
 const COLOR_SATURATION = 60; // Saturation percentage
@@ -31,6 +31,22 @@ function initBackground() {
 
     // Start animation
     animateLines();
+
+
+    const bg2 = document.getElementById('background2');
+    var w = screen.width;
+    var h = screen.height;
+    var asp = w / h;
+    if (asp > 1.6 && asp < 1.8) {
+        if (bg2) {
+            bg2.style[position] = "fixed";
+        }
+    }
+    else {
+        if (bg2) {
+            bg2.style[position] = "absolute";
+        }
+    }
 }
 
 // Create a single line element

@@ -1,7 +1,12 @@
 @import url("bootswatch.css");
 
-
-
+.table-custom {
+    display: flex !important;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-evenly;
+    align-items: center;
+}
 
 .image-thumb {
     max-width: 400px;
@@ -292,15 +297,51 @@
 }
 
 .home-intro {
-    width: 100%;
+    min-width: 35%;
+    display: flex;
+    align-items: center;
+    padding-top: var(--dl-layout-space-tenunits);
+    padding-bottom: var(--dl-layout-space-tenunits);
+    margin-top: 25rem !important;
+    margin-bottom: 30rem !important;
+    justify-content: center;
+    flex-direction: row;
+    background-image: url("/img/design/LOGO1.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    filter: invert(100%);
+    filter: blur(0px);
+}
+
+.home-intro-secondary {
+    min-width: 35%;
+    display: flex;
+    align-items: center;
+    padding-top: var(--dl-layout-space-tenunits);
+    padding-bottom: var(--dl-layout-space-tenunits);
+    margin-top: 10rem !important;
+    margin-bottom: 3rem !important;
+    justify-content: center;
+    flex-direction: row;
+    background-image: url("/img/design/LOGO1.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    filter: invert(100%);
+    filter: blur(0px);
+}
+
+.home-intro-end {
+    width: 60%;
     display: flex;
     align-items: center;
     padding-top: var(--dl-layout-space-tenunits);
     margin-bottom: var(--dl-layout-space-fiveunits);
-    flex-direction: row;
     padding-bottom: var(--dl-layout-space-tenunits);
-    background-size: cover;
     justify-content: center;
+    flex-direction: row;
+    background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
 }
@@ -364,13 +405,12 @@
     display: flex;
     align-self: flex-start;
     align-items: center;
-    margin-bottom: var(--dl-layout-space-fiveunits);
     flex-direction: column;
     justify-content: center;
 }
 
 .home-text11 {
-    align-self: flex-start;
+    align-self: center;
     text-align: center;
     margin-bottom: var(--dl-layout-space-fourunits);
 }
@@ -390,7 +430,7 @@
 }
 
 .home-features-card1 {
-    color: #c77dff;
+    color: #fffeff;
     width: 30%;
     display: flex;
     align-items: flex-start;
@@ -410,7 +450,6 @@
     margin-right: var(--dl-layout-space-tripleunit);
     border-radius: var(--dl-layout-radius-round);
     flex-direction: column;
-    background-color: var(--bs-gray-400);
 }
 
 .home-icon14 {
@@ -418,6 +457,7 @@
     height: 36px;
     min-width: 36px;
     min-height: 36px;
+    filter: invert(100);
 }
 
 .home-text-container1 {
@@ -667,16 +707,12 @@
 }
 
 .home-heading-container2 {
-    display: flex;
-    align-self: flex-start;
+    align-self: center;
     align-items: center;
-    margin-bottom: var(--dl-layout-space-fiveunits);
-    flex-direction: column;
-    justify-content: center;
 }
 
 .home-text19 {
-    align-self: flex-start;
+    align-self: center;
     text-align: center;
     margin-bottom: var(--dl-layout-space-fourunits);
 }
@@ -720,7 +756,8 @@
     border-radius: var(--dl-layout-radius-radius4);
     flex-direction: column;
     justify-content: center;
-    background-color: var(--bs-gray-100);
+    background-color: rgba(20, 20, 35, 0.7);
+    border: 1px solid rgba(90, 42, 138, 0.35);
 }
 
 .home-text22 {
@@ -773,20 +810,13 @@
 .home-content-container2 {
     width: 100%;
     display: flex;
-    max-width: var(--dl-layout-size-maxcontent);
-    margin-top: var(--dl-layout-space-fiveunits);
     align-items: center;
-    padding-top: var(--dl-layout-space-tenunits);
-    padding-left: var(--dl-layout-space-tripleunit);
-    margin-bottom: var(--dl-layout-space-fiveunits);
-    padding-right: var(--dl-layout-space-tripleunit);
     flex-direction: row;
-    padding-bottom: var(--dl-layout-space-tenunits);
-    justify-content: flex-end;
+    justify-content: center;
 }
 
 .home-intro-text2 {
-    width: 642px;
+    width: 60%;
     display: flex;
     align-self: center;
     align-items: center;
@@ -794,7 +824,7 @@
 }
 
 .home-heading17 {
-    align-self: flex-end;
+    align-self: center;
     text-align: center;
     margin-bottom: var(--dl-layout-space-fiveunits);
 }

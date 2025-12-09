@@ -6,23 +6,21 @@
 
 <div id="resources" class="home-intro content">
     <div class="home-content-container1">
-        <div class="home-intro-text1">
-            <h1 class="home-heading10 Section-Heading highlight">Лифты</h1>
-            <span class="home-text10 Section-Text subtitle">
-                @Model.Description
-            </span>
-            <a class="home-cta-btn1 Anchor btn-outline custom-bg-col highlight" href="#inspiration">Узнать больше</a>
-        </div>
+
     </div>
 </div>
 
 <div id="inspiration" class="info-box content">
     <div class="home-heading-container1">
-        <h1 class="home-text11 Section-Heading highlight">О Компании</h1>
-        <span class="home-text12 Section-Text subtitle">
+        <h1 class="home-text11 Section-Heading text-center highlight">О Компании</h1>
+        <span class="home-text12 Section-Text subtitle mb-5">
             @Model.Description
         </span>
+        <a class="h5 home-text19 highlight" asp-area="" asp-controller="Home" asp-action="About">Узнать больше</a>
     </div>
+</div>
+
+<div id="inspiration" class="info-box content">
     <div class="home-cards-container1">
         @foreach (var achvmnt in Model.Achievements)
         {
@@ -44,62 +42,22 @@
 </div>
 
 <div id="process" class="info-box content">
-    <div class="home-heading-container2">
-        <h1 class="home-text19 Section-Heading highlight">Каталог</h1>
-    </div>
-    <div class="home-cards-container2">
-        @foreach (var item in ViewBag.CatalogDemo)
-        {
-            <div class="info-box-service-card1">
-                <h3 class="home-text20 Card-Heading highlight">@item.Name</h3>
-                <span class="home-text21 Card-Text subtitle">
-                    @item.Description
-                </span>
-                <span class="Anchor text-dark-emphasis">Подробнее</span>
-            </div>
-        }
-    </div>
-</div>
-
-<div class="info-box">
-    <h1 class="home-text11 Section-Heading highlight">Предлагаемые услуги:</h1>
-    <div class="home-cards-container2">
-        @foreach (var sTxt in Model.Services)
-        {
-            <div id="resources" class="home-intro content">
-                <div class="home-content-container2">
-                    <div class="home-intro-text2">
-                        <h1 class="home-heading17 Section-Heading highlight">@sTxt</h1>
-                        <span class="home-text26 Section-Text subtitle">
-                            @sTxt
-                        </span>
-                    </div>
-                </div>
-            </div>
-        }
+    <div class="home-heading-container2 text-center">
+        <a class="h1 home-text19 highlight" asp-area="" asp-controller="Home" asp-action="Catalog">Каталог</a>
     </div>
 </div>
 
 <div id="resources" class="home-map custom-bg-col">
     <div class="my-3 text-light">
         <ul class="nav text-center">
-            <li class="nav-item subtitle">
+            <li class="nav-item subtitle me-3">
                 @ViewBag.ContactsData.Email
             </li>
-            <li class="nav-item mx-5">
-                |
-            </li>
-            <li class="nav-item subtitle">
+            <li class="nav-item subtitle me-3">
                 @ViewBag.ContactsData.Number
             </li>
-            <li class="nav-item mx-5">
-                |
-            </li>
-            <li class="nav-item subtitle">
+            <li class="nav-item subtitle me-3">
                 @ViewBag.ContactsData.Address
-            </li>
-            <li class="nav-item mx-5">
-                |
             </li>
             <li class="nav-item subtitle">
                 Пн-Пт 8:00-18:00
