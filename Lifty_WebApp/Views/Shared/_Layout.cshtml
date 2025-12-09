@@ -3,96 +3,39 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Lifty_WebApp</title>
+    <title>LiftTechLab///@ViewData["Title"]</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/bootswatch.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Lifty_WebApp.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/bg.css" asp-append-version="true" />
 </head>
-<body >
-    <div class="bg-primary">
-        <div class="container">
-            <header>
-                <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
-                    <div class="container-fluid">
-                        <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
-                            <img class="img-thumbnail image-thumb" src="https://utawesome.com/sites/default/files/styles/node_header/public/places/photos/historic_union_pacific_rail_trail.jpg?itok=vohd-9Lp" />
-                        </a>
-                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
-                        <div class="collapse navbar-collapse" id="navbarColor01">
-                            <ul class="navbar-nav me-auto">
-                                <li class="nav-item">
-                                    <a class="nav-link active" asp-area="" asp-controller="Home" asp-action="Index">
-                                        Главная
-                                        <span class="visually-hidden">(current)</span>
-                                    </a>
-                                </li>
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" asp-area="" asp-controller="Home" asp-action="Support" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Поддержка</a>
-                                    <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="#">Action</a>
-                                        <a class="dropdown-item" href="#">Another action</a>
-                                        <a class="dropdown-item" href="#">Something else here</a>
-                                        <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="#">Separated link</a>
-                                    </div>
-                                </li>
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" asp-area="" asp-controller="Home" asp-action="Catalog" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Каталог</a>
-                                    <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="#">Action</a>
-                                        <a class="dropdown-item" href="#">Another action</a>
-                                        <a class="dropdown-item" href="#">Something else here</a>
-                                        <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="#">Separated link</a>
-                                    </div>
-                                </li>
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" asp-area="" asp-controller="Home" asp-action="Services" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Услуги</a>
-                                    <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="#">Action</a>
-                                        <a class="dropdown-item" href="#">Another action</a>
-                                        <a class="dropdown-item" href="#">Something else here</a>
-                                        <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="#">Separated link</a>
-                                    </div>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" asp-area="" asp-controller="Home" asp-action="About">О компании</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Contacts">Контакты</a>
-                                </li>
-                            </ul>
-                            <form class="d-flex">
-                                <input class="form-control me-sm-2" type="search" placeholder="Поиск в каталоге">
-                                <button class="btn btn-secondary my-2 my-sm-0" type="submit">Найти</button>
-                            </form>
-                        </div>
-                    </div>
-                </nav>
-            </header>
-        </div>
-    </div>
+<body id="body">
+    <div class="background-container" id="background"></div>
+    <div class="background-container2" id="backgroun2"></div>
 
-    <div class="">
-        <main role="main" class="">
+    <div style="min-height: 90.3vh;">
+        <main role="main">
             @RenderBody()
         </main>
     </div>
 
-    <div class="container">
-        <footer class="">
+    <div class="custom-bg-col">
+        <footer>
             <ul class="nav justify-content-center border-bottom pb-1 mb-1">
                 <li class="nav-item">
-                    <a href="#" class="nav-link px-2 text-body-secondary">Главная</a>
+                    <a class="nav-link px-2 subtitle" asp-area="" asp-controller="Home" asp-action="Index">Главная</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link px-2 text-body-secondary" asp-area="" asp-controller="Home" asp-action="Index">О компании</a>
+                    <a class="nav-link subtitle" asp-area="" asp-controller="Home" asp-action="Catalog">Каталог</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link subtitle" asp-area="" asp-controller="Home" asp-action="About">О компании</a>
                 </li>
             </ul>
+            <span class="home-text12 Section-Text subtitle mb-5">
+                LiftTechLab @DateTime.Today.Year
+            </span>
         </footer>
     </div>
 

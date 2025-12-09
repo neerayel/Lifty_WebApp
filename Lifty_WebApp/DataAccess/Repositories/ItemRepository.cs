@@ -77,5 +77,13 @@ namespace Lifty_WebApp.DataAccess.Repositories
 
             await WriteJsonDataAsync(items);
         }
+
+        public async Task<List<ItemModel>> GetRangeAsync(int count)
+        {
+            var itemData = await ReadJsonDataAsync();
+            if (itemData.Count <= count) return itemData;
+
+            return itemData.Take(count).ToList();
+        }
     }
 }

@@ -6,6 +6,7 @@ namespace Lifty_WebApp.DataAccess.Interfaces
     {
         Task<List<ItemModel>> GetAllByRequestAsync(string request);
         Task<ItemModel> GetByIdAsync(string itemId);
+        Task<List<ItemModel>> GetRangeAsync(int count);
         Task<List<ItemModel>> GetAllAsync();
         Task<ItemModel> CopyByIdAsync(string oldItemId);
     }

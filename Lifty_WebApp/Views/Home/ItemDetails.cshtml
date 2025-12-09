@@ -1,0 +1,89 @@
+﻿@model Lifty_WebApp.DataAccess.Entities.ItemModel
+
+@{
+    ViewData["Title"] = "Подробнее о товаре///" + Model.Name;
+}
+
+<div class="my-5 content info-box mb-0">
+    <div class="me-auto d-flex">
+        <h1 class="me-auto h1 home-text19 Section-Heading highlight my-2">Информация о товаре</h1>
+        <a class="h5 home-text19 highlight mx-3 my-2" href="@Url.Action("Catalog", "Home")">Вернуться к списку</a>
+    </div>
+</div>
+
+<div class="content">
+    <div class="card-body">
+        <div class="form-group info-box mt-0 text-center">
+            <p class="font-weight-bold h5 highlight" id="Name-text">@Model.Name</p>
+        </div>
+
+        <div class="form-group ml-auto mb-5 info-box">
+            <div class="form-group text-center" id="imgContainer">
+                @foreach (var image in Model.ImgPath)
+                {
+                    <div class="my-2 mx-2">
+                        <img id="loadedImg" class="img-thumbnail mb-2 custom-bg-col" height="300" width="300" src="@image" />
+                    </div>
+                }
+            </div>
+        </div>
+
+        <div class="form-group info-box">
+            <label asp-for="Brand" class="font-weight-bold h5 highlight">Производитель</label>
+            <p class="subtitle text-center" id="Brand-text">@Model.Brand</p>
+        </div>
+
+        <div class="form-group info-box">
+            <label asp-for="Description" class="font-weight-bold h5 highlight">Описание</label>
+            <p class="subtitle text-center" id="Description-text">@Model.Description</p>
+        </div>
+
+        <div class="form-group info-box">
+            <label asp-for="Payment" class="font-weight-bold h5 highlight">Способ оплаты</label>
+            <p class="subtitle text-center" id="Payment-text">@Model.Payment</p>
+        </div>
+
+        <div class="form-group info-box">
+            <label asp-for="Delivery" class="font-weight-bold h5 highlight">Способ доставки</label>
+            <p class="subtitle text-center" id="Delivery-text">@Model.Delivery</p>
+        </div>
+
+        <div class="form-group ml-auto info-box">
+            <label asp-for="StatValues" class="control-label h5 highlight">Таблица характеристик</label>
+            <div class="form-group mb-2 d-flex info-box home-map mt-2 py-2">
+                @for (int i = 0; i < Model.StatParameters.Count; i++)
+                {
+                    <ul class="nav text-center">
+                        <li class="nav-item subtitle mx-5">
+                            <p class="subtitle" id="StatParameters-text">@Model.StatParameters[i]</p>
+                        </li>
+                        <li class="nav-item subtitle mx-5">
+                            <p class="subtitle" id="StatValues-text">@Model.StatValues[i]</p>
+                        </li>
+                    </ul>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="resources" class="home-map custom-bg-col">
+    <div class="my-3 text-light">
+        <ul class="nav text-center">
+            <li class="nav-item subtitle me-3">
+                @ViewBag.ContactsData.Email
+            </li>
+            <li class="nav-item subtitle me-3">
+                @ViewBag.ContactsData.Number
+            </li>
+            <li class="nav-item subtitle me-3">
+                @ViewBag.ContactsData.Address
+            </li>
+            <li class="nav-item subtitle">
+                Пн-Пт 8:00-18:00
+            </li>
+        </ul>
+    </div>
+</div>
+
+

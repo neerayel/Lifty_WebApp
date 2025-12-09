@@ -1,43 +1,50 @@
-﻿@{
+﻿@model List<Lifty_WebApp.DataAccess.Entities.ItemModel>
+
+@{
     ViewData["Title"] = "Каталог";
 }
 
+<a asp-area="" asp-controller="Home" asp-action="Index">
+    <div id="resources" class="home-intro-secondary content">
+        <div class="home-content-container1"></div>
+    </div>
+</a>
 
-<div id="process" class="home-catalog container">
+<div id="process" class="info-box content">
     <div class="home-heading-container2">
-        <h1 class="home-text19 Section-Heading text-primary-emphasis">Каталог</h1>
+        <h1 class="h1 home-text19 Section-Heading highlight">Каталог</h1>
     </div>
     <div class="home-cards-container2">
-        <div class="home-service-card1">
-            <h3 class="home-text20 Card-Heading text-primary-emphasis">Товар 1</h3>
-            <span class="home-text21 Card-Text text-secondary-emphasis">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
-                nec odio. Praesent libero.
-            </span>
-            <span class="Anchor text-dark-emphasis">Подробнее</span>
-        </div>
-        <div class="home-service-card2">
-            <h3 class="home-text22 Card-Heading text-primary-emphasis">Товар 2</h3>
-            <span class="home-text23 Card-Text text-secondary-emphasis">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
-                nec odio. Praesent libero.
-            </span>
-            <span class="Anchor text-dark-emphasis">Подробнее</span>
-        </div>
-        <div class="home-service-card3">
-            <h3 class="home-text24 Card-Heading text-primary-emphasis">Товар 3</h3>
-            <span class="home-text25 Card-Text text-secondary-emphasis">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
-                nec odio. Praesent libero.
-            </span>
-            <span class="Anchor text-dark-emphasis">Подробнее</span>
-        </div>
+        @foreach (var item in Model)
+        {
+            <div class="home-service-card2 mx-auto">
+                <h3 class="home-text20 Card-Heading highlight mx-auto my-auto">@item.Name</h3>
+                <div class="my-2 mx-auto">
+                    <img id="loadedImg" class="img-thumbnail mb-2 custom-bg-col" height="200" width="200" src="@item.ImgPath[0]" />
+                </div>
+                <span class="Anchor subtitle">
+                    <a href="@Url.Action("ItemDetails", "Home", new { id = item.Id })" class="Anchor subtitle">Подробнее</a>
+                </span>
+            </div>
+        }
     </div>
 </div>
 
-<div id="resources" class="home-map bg-primary">
-    <div class="home-content-container6">
-        <iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3A8a4d5a722d598b32d519919663233eaead6d0ea3d835177385733288e21736a5&amp;source=constructor" 
-            frameborder="0" class="home-yandex-maps"></iframe>
+<div id="resources" class="home-map custom-bg-col">
+    <div class="my-3 text-light">
+        <ul class="nav text-center">
+            <li class="nav-item subtitle me-3">
+                @ViewBag.ContactsData.Email
+            </li>
+            <li class="nav-item subtitle me-3">
+                @ViewBag.ContactsData.Number
+            </li>
+            <li class="nav-item subtitle me-3">
+                @ViewBag.ContactsData.Address
+            </li>
+            <li class="nav-item subtitle">
+                Пн-Пт 8:00-18:00
+            </li>
+        </ul>
     </div>
 </div>
