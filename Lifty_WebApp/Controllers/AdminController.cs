@@ -16,6 +16,7 @@ namespace Lifty_WebApp.Controllers
     public class AdminController : Controller
     {
         public string WebRootPath { private get; set; }
+        public string emptyImgPath {  get; set; } = "/img/design/NotFound.jpg";
         private readonly IItemRepository _itemRepository;
         private readonly IStoredDataRepository _dataRepository;
         private readonly IImageRepository _imageRepository;
@@ -135,6 +136,21 @@ namespace Lifty_WebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> UpdateItem(ItemModel itemModel)
         {
+            if (itemModel.ImgPath == null)
+            {
+                var itemOld = await _itemRepository.GetByIdAsync(itemModel.Id);
+                if (itemOld.ImgPath != null) itemModel.ImgPath = itemOld.ImgPath;
+                else itemModel.ImgPath = new List<string> { emptyImgPath };
+            }
+            else
+            {
+                itemModel.ImgPath.RemoveAll(x => String.IsNullOrEmpty(x) == true);
+                if (itemModel.ImgPath.Count == 0)
+                {
+                    itemModel.ImgPath = new List<string> { emptyImgPath };
+                }
+            }
+            
             await _itemRepository.UpdateAsync(itemModel);
             return RedirectToAction(nameof(ItemDetails), new { id = itemModel.Id }); ;
         }
