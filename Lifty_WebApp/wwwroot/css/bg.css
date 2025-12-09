@@ -103,7 +103,7 @@ h1 {
     }
 
 .highlight {
-    color: #fffeff;
+    color: #fffeff !important;
     font-weight: bold;
 }
 

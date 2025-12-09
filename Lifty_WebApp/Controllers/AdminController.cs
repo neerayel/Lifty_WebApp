@@ -127,7 +127,8 @@ namespace Lifty_WebApp.Controllers
                 }
                 catch { }
             }
-            
+            if (itemModel.ImgPath.Count == 0) itemModel.ImgPath.Add(emptyImgPath);
+
             var item = await _itemRepository.CreateAsync(itemModel);
             return RedirectToAction(nameof(ItemDetails), new { id = item.Id });
         }
