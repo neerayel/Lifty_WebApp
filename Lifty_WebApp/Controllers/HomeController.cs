@@ -1,7 +1,6 @@
 using System.Diagnostics;
 using Lifty_WebApp.Models;
 using Lifty_WebApp.DataAccess.Interfaces;
-using Lifty_WebApp.DataAccess.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Lifty_WebApp.Controllers
@@ -42,30 +41,11 @@ namespace Lifty_WebApp.Controllers
             return View(item);
         }
 
-        public async Task<IActionResult> Servicing()
-        {
-            ViewBag.ContactsData = await _dataRepository.GetContactsDataAsync();
-            var data = await _dataRepository.GetAboutDataAsync();
-            return View(data);
-        }
-
         public async Task<IActionResult> About()
         {
             ViewBag.ContactsData = await _dataRepository.GetContactsDataAsync();
             var dataModel = await _dataRepository.GetAboutDataAsync();
             return View(dataModel);
-        }
-
-        public async Task<IActionResult> Contacts()
-        {
-            var contactsData = await _dataRepository.GetContactsDataAsync();
-            return View(contactsData);
-        }
-
-        public async Task<IActionResult> Privacy()
-        {
-            var contactsData = await _dataRepository.GetContactsDataAsync();
-            return View(contactsData);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

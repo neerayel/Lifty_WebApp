@@ -1,14 +1,10 @@
 using Lifty_WebApp.Authorization;
 using Lifty_WebApp.DataAccess.Entities;
 using Lifty_WebApp.DataAccess.Interfaces;
-using Lifty_WebApp.DataAccess.Repositories;
 using Lifty_WebApp.Models;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
 using System.Diagnostics;
-using System.Threading.Tasks;
 
 namespace Lifty_WebApp.Controllers
 {
