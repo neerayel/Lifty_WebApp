@@ -32,7 +32,7 @@
                             <path d="M533.333 42.667c-176.469 0-320 143.531-320 320 0 63.403 18.773 124.672 54.357 177.707 0.981 2.005 2.091 3.925 3.413 5.76 77.867 111.189 91.563 146.347 91.563 179.2v128c0 23.552 19.115 42.667 42.667 42.667h85.333c0 11.093 4.693 22.187 12.373 30.293 8.107 7.68 19.2 12.373 30.293 12.373 11.093 0 22.187-4.693 30.293-12.373 7.68-8.107 12.373-19.2 12.373-30.293h85.333c23.552 0 42.667-19.115 42.667-42.667v-128c0-33.365 13.611-68.693 90.965-179.157 38.187-54.4 58.368-117.845 58.368-183.509 0-176.469-143.531-320-320-320zM618.667 810.667h-170.667v-42.667h170.667v42.667zM725.12 497.195c-62.549 89.301-91.435 140.331-101.76 185.472h-47.36v-85.333c0-23.552-19.115-42.667-42.667-42.667s-42.667 19.115-42.667 42.667v85.333h-47.488c-10.24-43.947-38.315-93.867-98.389-180.053-0.939-1.877-2.048-3.712-3.285-5.504-28.032-39.851-42.837-86.357-42.837-134.443 0-129.408 105.259-234.667 234.667-234.667s234.667 105.259 234.667 234.667c0 48.043-14.805 94.549-42.88 134.528z"></path>
                         </svg>
                     </div>
-                    <div class="home-text-container1">
+                    <div class="home-text-container1 mx-auto my-auto">
                         <span class="home-text13 Card-Text highlight">
                             @achvmnt
                         </span>
@@ -44,16 +44,13 @@
 
     <div class="info-box">
         <h1 class="home-text11 Section-Heading highlight">Предлагаемые услуги:</h1>
-        <div class="home-cards-container2">
+        <div class="home-cards-container3">
             @foreach (var sTxt in Model.Services)
             {
                 <div id="resources" class="home-intro-end info-box content">
                     <div class="home-content-container2">
                         <div class="home-intro-text2">
-                            <h1 class="home-heading17 Section-Heading highlight">@sTxt</h1>
-                            <span class="home-text26 Section-Text subtitle">
-                                @sTxt
-                            </span>
+                            <h2 class="home-heading17 highlight">@sTxt</h2>
                         </div>
                     </div>
                 </div>
@@ -69,7 +66,7 @@
                 <div id="resources" class="home-intro-end info-box content">
                     <div class="home-content-container2">
                         <div class="home-intro-text2">
-                            <h2 class="home-heading17 Section-Heading highlight">@cTxt</h2>
+                            <h2 class="home-heading17 highlight">@cTxt</h2>
                         </div>
                     </div>
                 </div>
